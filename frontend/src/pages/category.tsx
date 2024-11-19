@@ -177,8 +177,9 @@ export default function CategoryPage() {
                                 <img
                                     src={item.imageUrl}
                                     alt={item.name}
-                                    className={`object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ${loadedImages[item.id] ? 'opacity-100' : 'opacity-0'
-                                        }`}
+                                    className={`object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ${
+                                        loadedImages[item.id] ? 'opacity-100' : 'opacity-0'
+                                    }`}
                                     onLoad={() => setLoadedImages((prev) => ({ ...prev, [item.id]: true }))}
                                 />
                                 {item.stock < 5 && (

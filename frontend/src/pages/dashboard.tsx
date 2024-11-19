@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { DataTable } from '@/components/data-table';
 import { useState } from 'react';
-import ProductForm from '@/components/ProductForm';
+import ProductForm, { SecondaryButtonType } from '@/components/product-form';
 import { useToast } from '@/hooks/use-toast';
 
 interface ProductFormData {
@@ -22,6 +22,7 @@ interface ProductFormData {
 
 function DashboardPage() {
     const { toast } = useToast();
+
     const form = useForm<ProductFormData>({
         defaultValues: {
             productName: '',
@@ -47,7 +48,6 @@ function DashboardPage() {
             status: 'In Stock',
             featured: true,
         },
-        // Add more mock products as needed
     ]);
 
     const handleDeleteProduct = (id: string) => {
@@ -77,14 +77,15 @@ function DashboardPage() {
 
             // Show success message
             toast({
-                title: "Success",
-                description: "Product created successfully",
+                title: 'Success',
+                description: 'Product created successfully',
             });
         } catch (error) {
+            console.log(error);
             toast({
-                title: "Error",
-                description: "Failed to create product",
-                variant: "destructive",
+                title: 'Error',
+                description: 'Failed to create product',
+                variant: 'destructive',
             });
         }
     };
@@ -94,7 +95,7 @@ function DashboardPage() {
             <Tabs defaultValue="createProduct" className="w-full">
                 <TabsList className="grid w-full grid-cols-2">
                     <TabsTrigger value="createProduct">Create Product</TabsTrigger>
-                    <TabsTrigger value="tab2">Products</TabsTrigger>
+                    <TabsTrigger value="allProducts">Products</TabsTrigger>
                 </TabsList>
                 <TabsContent value="createProduct" className="mt-6">
                     <Card>
@@ -105,17 +106,20 @@ function DashboardPage() {
                             </CardDescription>
                         </CardHeader>
                         <CardContent>
-                            <ProductForm form={form} onSubmit={onSubmit} />
+                            <ProductForm
+                                form={form}
+                                onSubmit={onSubmit}
+                                submitText="Create Product"
+                                secondaryButton={SecondaryButtonType.Reset}
+                            />
                         </CardContent>
                     </Card>
                 </TabsContent>
-                <TabsContent value="tab2" className="mt-6">
+                <TabsContent value="allProducts" className="mt-6">
                     <Card>
                         <CardHeader>
                             <CardTitle>Products List</CardTitle>
-                            <CardDescription>
-                                Manage your existing products
-                            </CardDescription>
+                            <CardDescription>Manage your existing products</CardDescription>
                         </CardHeader>
                         <CardContent>
                             <DataTable
@@ -140,9 +144,7 @@ function DashboardPage() {
                                     {
                                         accessorKey: 'featured',
                                         header: 'Featured',
-                                        cell: ({ row }) => (
-                                            <span>{row.original.featured ? 'Yes' : 'No'}</span>
-                                        ),
+                                        cell: ({ row }) => <span>{row.original.featured ? 'Yes' : 'No'}</span>,
                                     },
                                     {
                                         id: 'actions',

@@ -21,13 +21,19 @@ interface ProductFormData {
     images: string[];
 }
 
+enum SecondaryButtonType {
+    Reset,
+    Back,
+}
+
 interface ProductFormProps {
     form: UseFormReturn<ProductFormData>;
     onSubmit: (data: ProductFormData) => void;
-    submitText?: string;
+    submitText: string;
+    secondaryButton: SecondaryButtonType;
 }
 
-const ProductForm: React.FC<ProductFormProps> = ({ form, onSubmit, submitText = 'Create Product' }) => {
+const ProductForm: React.FC<ProductFormProps> = ({ form, onSubmit, submitText, secondaryButton }) => {
     const [urlCount, setUrlCount] = React.useState(1);
     const navigate = useNavigate();
 
@@ -240,9 +246,16 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, onSubmit, submitText = 
                 </div>
 
                 <div className="flex justify-end space-x-4">
-                    <Button type="button" variant="outline" onClick={() => navigate(-1)}>
-                        Back
-                    </Button>
+                    {secondaryButton === SecondaryButtonType.Back ? (
+                        <Button type="button" variant="outline" onClick={() => navigate(-1)}>
+                            Back
+                        </Button>
+                    ) : (
+                        <Button type="button" variant="outline" onClick={() => form.reset()}>
+                            Reset
+                        </Button>
+                    )}
+
                     <Button type="submit">{submitText}</Button>
                 </div>
             </form>
@@ -251,3 +264,6 @@ const ProductForm: React.FC<ProductFormProps> = ({ form, onSubmit, submitText = 
 };
 
 export default ProductForm;
+
+export { SecondaryButtonType };
+export type { ProductFormData };

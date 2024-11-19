@@ -75,7 +75,7 @@ export function SignUpPage() {
                             </p>
                         </div>
 
-                        <div className="bg-card border rounded-lg p-6 shadow-sm">
+                        <div className="bg-card border rounded-lg px-6 py-10 shadow-sm">
                             <Form {...form}>
                                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6" noValidate>
                                     <div className="space-y-4">

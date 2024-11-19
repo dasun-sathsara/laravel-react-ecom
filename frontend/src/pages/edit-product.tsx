@@ -2,11 +2,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useForm } from 'react-hook-form';
-import ProductForm from '@/components/ProductForm';
-import type { ProductFormData } from '@/components/ProductForm';
+import ProductForm from '@/components/product-form';
 import { useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import { SecondaryButtonType, ProductFormData } from '@/components/product-form';
 
 export default function EditProductPage() {
     const { productId } = useParams();
@@ -41,7 +39,7 @@ export default function EditProductPage() {
             productUrls: [
                 'https://example.com/image1.jpg',
                 'https://example.com/image2.jpg',
-                'https://example.com/image3.jpg'
+                'https://example.com/image3.jpg',
             ],
             images: ['image1.jpg', 'image2.jpg', 'image3.jpg'],
         };
@@ -61,6 +59,7 @@ export default function EditProductPage() {
 
             navigate('/dashboard');
         } catch (error) {
+            console.log(error);
             toast({
                 title: 'Error',
                 description: 'Failed to update product',
@@ -74,15 +73,14 @@ export default function EditProductPage() {
             <Card>
                 <CardHeader>
                     <CardTitle>Edit Product</CardTitle>
-                    <CardDescription>
-                        Update the product information below.
-                    </CardDescription>
+                    <CardDescription>Update the product information below.</CardDescription>
                 </CardHeader>
                 <CardContent>
                     <ProductForm
                         form={form}
                         onSubmit={onSubmit}
                         submitText="Update Product"
+                        secondaryButton={SecondaryButtonType.Back}
                     />
                 </CardContent>
             </Card>
