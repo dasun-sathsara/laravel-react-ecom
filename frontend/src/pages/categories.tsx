@@ -72,8 +72,7 @@ export function CategoriesPage() {
                     <Link
                         to={`/category/${category.id}`}
                         key={category.id}
-                        className="group block transition-transform hover:-translate-y-0.5 duration-300"
-                    >
+                        className="group block transition-transform hover:-translate-y-0.5 duration-300">
                         <Card className="overflow-hidden border hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-md">
                             <div className="relative">
                                 <div className="relative aspect-[4/3] overflow-hidden">
@@ -93,7 +92,10 @@ export function CategoriesPage() {
                                 <Badge variant="secondary" className="bg-background/80 text-foreground">
                                     {category.itemCount.toLocaleString()} items
                                 </Badge>
-                                <Button variant="ghost" size="sm" className="text-muted-foreground group-hover:text-primary/80">
+                                <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-muted-foreground group-hover:text-primary/80">
                                     Browse Category <ArrowRight className="ml-1 h-4 w-4" />
                                 </Button>
                             </div>
