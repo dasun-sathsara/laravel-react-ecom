@@ -1,6 +1,6 @@
 import { Container } from './ui/container';
 import { ShoppingBag } from 'lucide-react';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store/auth-store';
 import { Link } from 'react-router-dom';
 
 const baseLinks = [
@@ -39,27 +39,26 @@ export function Footer() {
                                 {link.name}
                             </Link>
                         ))}
-                        {isAuthenticated && !isAdmin() && (
-                            <>
+                        {isAuthenticated &&
+                            !isAdmin() &&
+                            userLinks.map((link) => (
                                 <Link
-                                    to="/orders"
+                                    key={link.name}
+                                    to={link.href}
                                     className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                                    Orders
+                                    {link.name}
                                 </Link>
+                            ))}
+                        {isAuthenticated &&
+                            isAdmin() &&
+                            adminLinks.map((link) => (
                                 <Link
-                                    to="/checkout"
+                                    key={link.name}
+                                    to={link.href}
                                     className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                                    Checkout
+                                    {link.name}
                                 </Link>
-                            </>
-                        )}
-                        {isAuthenticated && isAdmin() && (
-                            <Link
-                                to="/admin/dashboard"
-                                className="text-xs text-muted-foreground hover:text-foreground transition-colors">
-                                Dashboard
-                            </Link>
-                        )}
+                            ))}
                     </div>
 
                     {/* Copyright Row */}

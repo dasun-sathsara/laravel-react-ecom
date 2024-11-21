@@ -2,7 +2,7 @@ import { ShoppingBag } from 'lucide-react';
 import { Button } from './ui/button';
 import { Container } from './ui/container';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store/auth-store';
 import { CheckoutButton } from './checkout-button';
 import { useToast } from '@/hooks/use-toast';
 

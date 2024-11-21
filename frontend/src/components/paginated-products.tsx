@@ -25,8 +25,8 @@ export function ProductsGrid() {
     const handleAddToCart = () => {
         // TODO: Implement add to cart functionality
         toast({
-            title: "Added to cart",
-            description: "The product has been added to your cart.",
+            title: 'Added to cart',
+            description: 'The product has been added to your cart.',
         });
     };
 

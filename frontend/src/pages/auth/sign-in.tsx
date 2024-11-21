@@ -3,37 +3,31 @@ import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useAuthStore } from '@/store/authStore';
+import { useAuthStore } from '@/store/auth-store';
 import { useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { useNavigate } from 'react-router-dom';
 
-const formSchema = z
-    .object({
-        name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
-        email: z.string().email({ message: 'Please enter a valid email address.' }),
-        password: z.string().min(8, { message: 'Password must be at least 8 characters.' }).max(50),
-        confirmPassword: z.string(),
-    })
-    .refine((data) => data.password === data.confirmPassword, {
-        message: 'Passwords do not match',
-        path: ['confirmPassword'],
-    });
+const formSchema = z.object({
+    email: z.string().email({ message: 'Please enter a valid email address.' }),
+    password: z.string().min(1, { message: 'Please enter a password.' }),
+});
 
-export function SignUpPage() {
-    const navigate = useNavigate();
-    const { signup, isLoading, error, clearError } = useAuthStore();
+export function LoginPage() {
+    const { signin, isLoading, error, clearError, isAdmin } = useAuthStore();
+
     const { toast } = useToast();
+
+    const navigate = useNavigate();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            name: '',
             email: '',
             password: '',
-            confirmPassword: '',
         },
     });
 
@@ -47,20 +41,26 @@ export function SignUpPage() {
     }, [error, form]);
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        // Clear any existing errors
+        // Clear any existing errors before attempting to sign in
         form.clearErrors();
         clearError();
 
-        const success = await signup(values.name, values.email, values.password, values.confirmPassword);
+        const success = await signin(values.email, values.password);
+
         if (success) {
             toast({
                 title: 'Success',
-                description: 'Account created successfully',
+                description: 'You have been signed in successfully',
                 duration: 3000,
             });
 
             setTimeout(() => {
-                navigate('/login', { replace: true });
+                if (isAdmin()) {
+                    navigate('/admin/dashboard', { replace: true });
+                    return;
+                } else {
+                    navigate('/', { replace: true });
+                }
             }, 2000);
         }
     }
@@ -94,13 +94,13 @@ export function SignUpPage() {
                 <div className="flex min-h-[calc(100vh-4rem)] items-center justify-center py-12">
                     <div className="w-full max-w-md space-y-8">
                         <div className="text-center space-y-2">
-                            <h2 className="text-3xl font-bold tracking-tight">Create an account</h2>
+                            <h2 className="text-3xl font-bold tracking-tight">Welcome back</h2>
                             <p className="text-muted-foreground">
-                                Already have an account?{' '}
+                                Don't have an account?{' '}
                                 <Link
-                                    to="/login"
+                                    to="/signup"
                                     className="text-primary hover:underline transition-colors font-medium">
-                                    Sign in
+                                    Sign up
                                 </Link>
                             </p>
                         </div>
@@ -115,23 +115,6 @@ export function SignUpPage() {
                                             </div>
                                         )}
 
-                                        <FormField
-                                            control={form.control}
-                                            name="name"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-foreground/90">Name</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="Anura Kumara"
-                                                            {...field}
-                                                            className="bg-background/50 border-border/50"
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
                                         <FormField
                                             control={form.control}
                                             name="email"
@@ -163,28 +146,7 @@ export function SignUpPage() {
                                                             placeholder="••••••••"
                                                             {...field}
                                                             className="bg-background/50 border-border/50"
-                                                            autoComplete="new-password"
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <FormField
-                                            control={form.control}
-                                            name="confirmPassword"
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel className="text-foreground/90">
-                                                        Confirm Password
-                                                    </FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            type="password"
-                                                            placeholder="••••••••"
-                                                            {...field}
-                                                            className="bg-background/50 border-border/50"
-                                                            autoComplete="new-password"
+                                                            autoComplete="current-password"
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
@@ -194,7 +156,7 @@ export function SignUpPage() {
                                     </div>
 
                                     <Button type="submit" className="w-full" disabled={isLoading}>
-                                        {isLoading ? 'Creating Account...' : 'Create Account'}
+                                        {isLoading ? 'Signing in...' : 'Sign In'}
                                     </Button>
                                 </form>
                             </Form>
