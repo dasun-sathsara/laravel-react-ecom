@@ -88,7 +88,9 @@ export function ProductPage() {
     const handleAddToCart = () => {
         toast({
             title: 'Added to cart',
-            description: `${quantity} ${quantity === 1 ? 'unit' : 'units'} of ${product.name} ${quantity === 1 ? 'has' : 'have'} been added to your cart.`,
+            description: `${quantity} ${quantity === 1 ? 'unit' : 'units'} of ${product.name} ${
+                quantity === 1 ? 'has' : 'have'
+            } been added to your cart.`,
         });
     };
 
@@ -102,8 +104,7 @@ export function ProductPage() {
             <Button
                 variant="ghost"
                 className="mb-8 -ml-2 flex items-center text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => navigate(-1)}
-            >
+                onClick={() => navigate(-1)}>
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back
             </Button>
@@ -134,9 +135,7 @@ export function ProductPage() {
                 <div className="flex flex-col h-full">
                     <div className="flex-1 space-y-6">
                         <h1 className="text-3xl font-bold">{product.name}</h1>
-                        <span className="text-sm text-muted-foreground capitalize -mt-4">
-                            {product.category}
-                        </span>
+                        <span className="text-sm text-muted-foreground capitalize -mt-4">{product.category}</span>
                         <div className="flex items-baseline gap-4">
                             <span className="text-3xl font-bold">{product.price}</span>
                             {product.originalPrice && (
@@ -182,8 +181,7 @@ export function ProductPage() {
                                         variant="outline"
                                         size="icon"
                                         onClick={() => updateQuantity(quantity - 1)}
-                                        disabled={quantity <= 1}
-                                    >
+                                        disabled={quantity <= 1}>
                                         <Minus className="h-4 w-4" />
                                     </Button>
                                     <Input
@@ -198,8 +196,7 @@ export function ProductPage() {
                                         variant="outline"
                                         size="icon"
                                         onClick={() => updateQuantity(quantity + 1)}
-                                        disabled={quantity >= product.stock}
-                                    >
+                                        disabled={quantity >= product.stock}>
                                         <Plus className="h-4 w-4" />
                                     </Button>
                                 </div>
@@ -209,7 +206,11 @@ export function ProductPage() {
                                     <ShoppingCart className="mr-2 h-4 w-4" />
                                     Add to Cart
                                 </Button>
-                                <Button size="lg" variant="secondary" className="flex-1 font-medium" onClick={handleBuyNow}>
+                                <Button
+                                    size="lg"
+                                    variant="secondary"
+                                    className="flex-1 font-medium"
+                                    onClick={handleBuyNow}>
                                     Buy Now
                                 </Button>
                             </div>

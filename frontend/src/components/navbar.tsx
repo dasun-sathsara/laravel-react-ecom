@@ -1,17 +1,42 @@
-import { ShoppingBag, ShoppingCart } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import { Button } from './ui/button';
 import { Container } from './ui/container';
 import { Link, useNavigate } from 'react-router-dom';
+import { useAuthStore } from '@/store/authStore';
+import { CheckoutButton } from './checkout-button';
+import { useToast } from '@/hooks/use-toast';
 
 const navigation = [
     { name: 'Home', href: '/' },
     { name: 'Shop', href: '/shop' },
     { name: 'Categories', href: '/categories' },
-    { name: 'Orders', href: '/orders' },
 ];
+
+const authenticatedNavigation = [...navigation, { name: 'Orders', href: '/orders' }];
 
 export function Navbar() {
     const navigate = useNavigate();
+    const { toast } = useToast();
+
+    const { isAuthenticated, logout, isAdmin } = useAuthStore();
+
+    const handleLogout = async () => {
+        const success = await logout();
+        if (success) {
+            navigate('/', { replace: true });
+            toast({
+                title: 'Success',
+                description: 'You have been logged out successfully',
+                duration: 3000,
+            });
+        } else {
+            toast({
+                title: 'Error',
+                description: 'An error occurred while logging out',
+                duration: 3000,
+            });
+        }
+    };
 
     return (
         <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -25,28 +50,37 @@ export function Navbar() {
                     </div>
 
                     <nav className="flex items-center justify-center gap-6">
-                        {navigation.map((item) => (
+                        {(isAuthenticated && !isAdmin() ? authenticatedNavigation : navigation).map((item) => (
                             <Link
                                 key={item.name}
                                 to={item.href}
-                                className="text-sm font-medium transition-colors hover:text-primary"
-                            >
+                                className="text-sm font-medium transition-colors hover:text-primary">
                                 {item.name}
                             </Link>
                         ))}
                     </nav>
 
                     <div className="flex items-center justify-end gap-4">
-                        <Button variant="ghost" size="icon" onClick={() => navigate('/checkout')} className="relative">
-                            <ShoppingCart className="h-5 w-5" />
-                            <span className="absolute -top-1 -right-1 h-4 w-4 rounded-full bg-primary text-[10px] font-medium text-primary-foreground flex items-center justify-center">
-                                0
-                            </span>
-                        </Button>
-                        <Button variant="ghost" onClick={() => navigate('/login')}>
-                            Sign in
-                        </Button>
-                        <Button onClick={() => navigate('/signup')}>Sign up</Button>
+                        {isAuthenticated ? (
+                            <>
+                                <Button variant="ghost" onClick={handleLogout}>
+                                    Logout
+                                </Button>
+
+                                {isAdmin() ? (
+                                    <Button onClick={() => navigate('/admin/dashboard')}>Dashboard</Button>
+                                ) : (
+                                    <CheckoutButton stock={0} />
+                                )}
+                            </>
+                        ) : (
+                            <>
+                                <Button variant="ghost" onClick={() => navigate('/login')}>
+                                    Sign in
+                                </Button>
+                                <Button onClick={() => navigate('/signup')}>Sign up</Button>
+                            </>
+                        )}
                     </div>
                 </div>
             </Container>

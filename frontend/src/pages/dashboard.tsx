@@ -1,9 +1,9 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { DataTable } from '@/components/data-table';
+import { DataTable } from '@/components/all-products-table';
 import { useState } from 'react';
-import ProductForm, { SecondaryButtonType } from '@/components/product-form';
+import ProductForm, { SecondaryButtonType } from '@/components/add-product-form';
 import { useToast } from '@/hooks/use-toast';
 
 interface ProductFormData {
@@ -151,8 +151,7 @@ function DashboardPage() {
                                         cell: ({ row }) => (
                                             <button
                                                 onClick={() => handleDeleteProduct(row.original.id)}
-                                                className="text-red-600 hover:text-red-800"
-                                            >
+                                                className="text-red-600 hover:text-red-800">
                                                 Delete
                                             </button>
                                         ),

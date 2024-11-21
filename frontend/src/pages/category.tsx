@@ -1,6 +1,6 @@
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '../components/ui/button';
-import { ProductsGrid } from '@/components/products';
+import { ProductsGrid } from '@/components/paginated-products';
 
 export default function CategoryPage() {
     const length = 12;

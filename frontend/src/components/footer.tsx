@@ -1,16 +1,24 @@
 import { Container } from './ui/container';
 import { ShoppingBag } from 'lucide-react';
+import { useAuthStore } from '@/store/authStore';
+import { Link } from 'react-router-dom';
 
-const links = [
+const baseLinks = [
     { name: 'Home', href: '/' },
     { name: 'Shop', href: '/shop' },
     { name: 'Categories', href: '/categories' },
-    { name: 'Dashboard', href: '/dashboard' },
+];
+
+const userLinks = [
     { name: 'Orders', href: '/orders' },
     { name: 'Checkout', href: '/checkout' },
 ];
 
+const adminLinks = [{ name: 'Dashboard', href: '/admin/dashboard' }];
+
 export function Footer() {
+    const { isAuthenticated, isAdmin } = useAuthStore();
+
     return (
         <footer className="border-t bg-background">
             <Container>
@@ -23,15 +31,35 @@ export function Footer() {
 
                     {/* Navigation Links Row */}
                     <div className="flex items-center space-x-6">
-                        {links.map((link) => (
-                            <a
+                        {baseLinks.map((link) => (
+                            <Link
                                 key={link.name}
-                                href={link.href}
-                                className="text-xs text-muted-foreground hover:text-foreground transition-colors"
-                            >
+                                to={link.href}
+                                className="text-xs text-muted-foreground hover:text-foreground transition-colors">
                                 {link.name}
-                            </a>
+                            </Link>
                         ))}
+                        {isAuthenticated && !isAdmin() && (
+                            <>
+                                <Link
+                                    to="/orders"
+                                    className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+                                    Orders
+                                </Link>
+                                <Link
+                                    to="/checkout"
+                                    className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+                                    Checkout
+                                </Link>
+                            </>
+                        )}
+                        {isAuthenticated && isAdmin() && (
+                            <Link
+                                to="/admin/dashboard"
+                                className="text-xs text-muted-foreground hover:text-foreground transition-colors">
+                                Dashboard
+                            </Link>
+                        )}
                     </div>
 
                     {/* Copyright Row */}

@@ -1,0 +1,7 @@
+Backend Details:
+- Laravel API
+- Uses token based authentication (two types of access tokens: admin and user)
+
+TODO:
+
+If the authenticated user is an admin, the navbar should display Home, Shop, Catgories and a primary button called Dashboard along with a ghost button to logout.

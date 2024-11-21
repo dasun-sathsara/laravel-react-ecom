@@ -1,4 +1,4 @@
-import { ProductsGrid } from '@/components/products';
+import { ProductsGrid } from '@/components/paginated-products';
 
 export function ShopPage() {
     // TODO:

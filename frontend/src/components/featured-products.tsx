@@ -91,8 +91,7 @@ export function FeaturedProducts() {
                         align: 'start',
                         loop: true,
                     }}
-                    className="w-full"
-                >
+                    className="w-full">
                     <CarouselContent className="-ml-2 md:-ml-4">
                         {products.map((product) => (
                             <CarouselItem key={product.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4">
@@ -135,8 +134,7 @@ export function FeaturedProducts() {
                                                     <span
                                                         className={`${
                                                             product.stock < 5 ? 'text-yellow-600' : 'text-green-600'
-                                                        }`}
-                                                    >
+                                                        }`}>
                                                         {product.stock < 5 ? 'Low Stock' : 'In Stock'}
                                                     </span>
                                                 ) : (
@@ -149,8 +147,7 @@ export function FeaturedProducts() {
                                         <Button
                                             className="w-full"
                                             onClick={() => handleAddToCart(product)}
-                                            disabled={product.stock === 0}
-                                        >
+                                            disabled={product.stock === 0}>
                                             <ShoppingCart className="mr-2 h-4 w-4" />
                                             {product.stock === 0 ? 'Out of Stock' : 'Add to Cart'}
                                         </Button>

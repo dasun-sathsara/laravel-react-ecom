@@ -2,9 +2,9 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useForm } from 'react-hook-form';
-import ProductForm from '@/components/product-form';
+import ProductForm from '@/components/add-product-form';
 import { useEffect } from 'react';
-import { SecondaryButtonType, ProductFormData } from '@/components/product-form';
+import { SecondaryButtonType, ProductFormData } from '@/components/add-product-form';
 
 export default function EditProductPage() {
     const { productId } = useParams();
