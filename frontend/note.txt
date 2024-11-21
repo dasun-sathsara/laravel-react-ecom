@@ -4,4 +4,4 @@ Backend Details:
 
 TODO:
 
-If the authenticated user is an admin, the navbar should display Home, Shop, Catgories and a primary button called Dashboard along with a ghost button to logout.
+Improve the look of the product component slighly. Add a badge in the top right corner of the product image to show the discount percentage if any.

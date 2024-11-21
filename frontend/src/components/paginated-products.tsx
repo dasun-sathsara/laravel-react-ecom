@@ -1,8 +1,7 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import { useState } from 'react';
-
 import { useToast } from '@/hooks/use-toast';
+import { Product } from '@/components/product';
+import { ProductLoading } from '@/components/product-loading';
 import {
     Pagination,
     PaginationContent,
@@ -12,25 +11,28 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from '@/components/ui/pagination';
-
-import type { Product } from '@/types/product';
+import type { Product as ProductType } from '@/types/product';
 
 export function ProductsGrid() {
-    useToast();
+    const { toast } = useToast();
     const [currentPage] = useState(1);
-    const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
     const [isLoading] = useState(true);
 
-    const currentProducts: Product[] = [];
-
+    const currentProducts: ProductType[] = [];
     const itemsPerPage = 12;
     const totalPages = 0;
 
     const handleAddToCart = () => {
-        // TODO:
+        // TODO: Implement add to cart functionality
+        toast({
+            title: "Added to cart",
+            description: "The product has been added to your cart.",
+        });
     };
 
-    const handlePageChange = () => {};
+    const handlePageChange = () => {
+        // TODO: Implement page change functionality
+    };
 
     const generatePaginationItems = () => {
         const items = [];
@@ -89,74 +91,29 @@ export function ProductsGrid() {
         <>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-8">
                 {isLoading
-                    ? // Loading skeleton
-                      Array.from({ length: itemsPerPage }).map((_, index) => (
-                          <Card key={`skeleton-${index}`} className="group relative">
-                              <CardContent className="p-0">
-                                  <div className="relative aspect-square overflow-hidden rounded-t-lg bg-muted animate-pulse" />
-                                  <div className="p-6 space-y-3">
-                                      <div className="h-4 bg-muted rounded animate-pulse w-3/4" />
-                                      <div className="h-4 bg-muted rounded animate-pulse w-1/4" />
-                                      <div className="h-4 bg-muted rounded animate-pulse w-1/2" />
-                                      <div className="h-8 bg-muted rounded animate-pulse w-full mt-4" />
-                                  </div>
-                              </CardContent>
-                          </Card>
+                    ? Array.from({ length: itemsPerPage }).map((_, index) => (
+                          <ProductLoading key={`skeleton-${index}`} />
                       ))
                     : currentProducts.map((product) => (
-                          <Card key={product.id} className="group relative cursor-pointer" onClick={() => {}}>
-                              <CardContent className="p-0">
-                                  <div className="relative aspect-square overflow-hidden rounded-t-lg">
-                                      {!loadedImages[product.id] && (
-                                          <div className="absolute inset-0 bg-muted animate-pulse" />
-                                      )}
-                                      <img
-                                          src={product.primaryImageUrl}
-                                          alt={product.name}
-                                          className={`object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ${
-                                              loadedImages[product.id] ? 'opacity-100' : 'opacity-0'
-                                          }`}
-                                          onLoad={() => setLoadedImages((prev) => ({ ...prev, [product.id]: true }))}
-                                      />
-                                  </div>
-                                  <div className="p-6">
-                                      <h3 className="font-semibold group-hover:text-primary transition-colors">
-                                          {product.name}
-                                      </h3>
-                                      <div className="mt-2 font-medium text-primary">${product.price.toFixed(2)}</div>
-                                      <div className="mt-2 text-sm">
-                                          {product.stock > 0 ? (
-                                              <span
-                                                  className={`${
-                                                      product.stock < 5 ? 'text-yellow-600' : 'text-green-600'
-                                                  }`}>
-                                                  {product.stock < 5 ? 'Low Stock' : 'In Stock'}
-                                              </span>
-                                          ) : (
-                                              <span className="text-destructive">Out of Stock</span>
-                                          )}
-                                      </div>
-                                      <Button
-                                          className="w-full mt-4"
-                                          onClick={() => {
-                                              handleAddToCart();
-                                          }}>
-                                          Add to Cart
-                                      </Button>
-                                  </div>
-                              </CardContent>
-                          </Card>
+                          <Product
+                              key={product.id}
+                              product={product}
+                              onAddToCart={handleAddToCart}
+                              onClick={() => {
+                                  // TODO: Implement product click handler
+                              }}
+                          />
                       ))}
             </div>
 
             <Pagination className="mt-8">
                 <PaginationContent>
                     <PaginationItem>
-                        <PaginationPrevious onClick={() => {}} />
+                        <PaginationPrevious onClick={() => handlePageChange()} />
                     </PaginationItem>
                     {generatePaginationItems()}
                     <PaginationItem>
-                        <PaginationNext onClick={() => {}} />
+                        <PaginationNext onClick={() => handlePageChange()} />
                     </PaginationItem>
                 </PaginationContent>
             </Pagination>
