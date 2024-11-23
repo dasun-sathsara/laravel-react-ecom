@@ -1,0 +1,17 @@
+Use php artisan to create necessary files.
+I am building an API for an ecommerce app. I have implemented authentication and authorization using Laravel Sanctum.
+
+TODO:
+
+Implement the following relationships. (I have implemented all of them. Check them for me. I am not sure I have done it correctly.)
+
+products: id, name, description, price, discounted_price, category_id, stock, featured, timestamp
+product_images: id, product_id, url, is_primary, timestamp
+
+categories: id, name, description, timestamp (create a seeder for this)
+
+orders: id, user_id, status, timestamp
+order_items: id, order_id, product_id, quantity, price, total
+
+carts: id, user_id, timestamp
+cart_items: id, cart_id, product_id, quantity, price, total
