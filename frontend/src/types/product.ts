@@ -4,11 +4,13 @@ interface Product {
     description: string;
     price: number;
     discountedPrice?: number;
-    primaryImageUrl: string;
+    categoryId: number;
+    categoryName: string;
     imageUrls: string[];
     stock: number;
-    category: string;
     featured: boolean;
 }
 
-export type { Product };
+type ProductCard = Omit<Product, 'imageUrls'> & { imageUrl: string };
+
+export type { Product, ProductCard };

@@ -1,13 +1,7 @@
 import { create } from 'zustand';
 import { api } from '@/lib/api';
 import { AxiosError } from 'axios';
-
-interface User {
-    id: number;
-    name: string;
-    email: string;
-    role: 'admin' | 'user';
-}
+import type { User } from '@/types/user';
 
 interface AuthState {
     user: User | null;

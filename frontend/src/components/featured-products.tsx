@@ -1,17 +1,29 @@
 import { Container } from './ui/container';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
 import { useToast } from '@/hooks/use-toast';
-import { Product } from './product';
+import { Product } from './product-card';
 import { ProductLoading } from './product-loading';
-import { useState } from 'react';
-import type { Product as ProductType } from '@/types/product';
-import { mockProducts } from '@/lib/dummy-data';
-
-const products: ProductType[] = mockProducts;
+import { useEffect } from 'react';
+import { useProductStore } from '@/store/product-store';
 
 export function FeaturedProducts() {
     const { toast } = useToast();
-    const [isLoading] = useState(false);
+    const { featuredProducts, isLoading, error, fetchFeaturedProducts } = useProductStore();
+
+    useEffect(() => {
+        fetchFeaturedProducts();
+    }, [fetchFeaturedProducts]);
+
+    useEffect(() => {
+        if (error) {
+            toast({
+                title: 'Error',
+                description: error,
+                duration: 3000,
+                variant: 'destructive',
+            });
+        }
+    }, [error, toast]);
 
     const handleAddToCart = () => {
         toast({
@@ -45,20 +57,14 @@ export function FeaturedProducts() {
                                       <ProductLoading />
                                   </CarouselItem>
                               ))
-                            : products.map((product) => (
+                            : featuredProducts.map((product) => (
                                   <CarouselItem key={product.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4">
-                                      <Product
-                                          product={product}
-                                          onAddToCart={handleAddToCart}
-                                          onClick={() => {
-                                              // TODO: Implement product click handler
-                                          }}
-                                      />
+                                      <Product product={product} onAddToCart={handleAddToCart} />
                                   </CarouselItem>
                               ))}
                     </CarouselContent>
-                    <CarouselPrevious className="hidden md:flex -left-12 text-primary hover:text-primary bg-background/80 hover:bg-background shadow-sm hover:shadow-md border-muted" />
-                    <CarouselNext className="hidden md:flex -right-12 text-primary hover:text-primary bg-background/80 hover:bg-background shadow-sm hover:shadow-md border-muted" />
+                    <CarouselPrevious />
+                    <CarouselNext />
                 </Carousel>
             </Container>
         </div>

@@ -36,8 +36,8 @@ class ProductSeeder extends Seeder
                 'stock' => 30,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://www.apple.com/newsroom/images/product/iphone/standard/apple-iphone-15-pro-max-model-unspec-202309_big.jpg.large.jpg',
-                    'https://www.digitaltrends.com/wp-content/uploads/2023/09/iPhone-15-Pro-Max-back-camera-1.jpg'
+                    'https://idealz.lk/wp-content/uploads/2023/09/iPhone-15-Pro-Max-Titanium.jpg',
+                    'https://i5.walmartimages.com/seo/Restored-Apple-iPhone-15-Pro-Max-256GB-T-Mobile-Blue-Titanium-MU693LL-A-Excellent-Condition_dd2d42c6-cc25-4bee-81ef-7847120498d5.663475b807d168a41e9082d258d9c7ce.jpeg'
                 ])
             ],
             [
@@ -47,10 +47,10 @@ class ProductSeeder extends Seeder
                 'discounted_price' => null,
                 'category_id' => 3, // Tablets category
                 'stock' => 20,
-                'featured' => false,
+                'featured' => true,
                 'image_urls' => json_encode([
-                    'https://images.samsung.com/is/image/samsung/p6pim/sg/sm-x910nzaexsp/gallery/sg-galaxy-tab-s9-ultra-sm-x910-sm-x910nzaexsp-537292307?$650_519_PNG$',
-                    'https://cdn.mos.cms.futurecdn.net/6JvqSBCasrwSh8pEpRvcAD.jpg'
+                    'https://xmobile.lk/wp-content/uploads/2023/09/1-9.jpg',
+                    'https://fdn.gsmarena.com/imgroot/reviews/23/samsung-galaxy-tab-s9-ultra/lifestyle/-1200w5/gsmarena_019.jpg'
                 ])
             ],
             [
@@ -62,8 +62,8 @@ class ProductSeeder extends Seeder
                 'stock' => 50,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://www.apple.com/newsroom/images/product/watch/standard/apple-watch-series-9-hero_big.jpg.large.jpg',
-                    'https://images.macrumors.com/article-new/2023/09/apple-watch-series-9-1.jpg'
+                    'https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MXLV3ref_FV99_VW_34FR+watch-case-46-aluminum-silver-nc-s10_VW_34FR+watch-face-46-aluminum-silver-s10_VW_34FR?wid=750&hei=712&trim=1%2C0&fmt=p-jpg&qlt=95&.v=1725645481882',
+                    'https://media1.s-nbcnews.com/i/rockcms/2023-10/191336/Series-9-Review-Cover-1-e6a7a2_1d146386ae167a247547b37756a7861536c43682.jpg'
                 ])
             ],
             [
@@ -75,8 +75,9 @@ class ProductSeeder extends Seeder
                 'stock' => 10,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://www.lg.com/us/images/monitors/md08000240/gallery/D-01.jpg',
-                    'https://images.techhive.com/images/article/2019/05/lg-ultrafine-5k-display-100796560-large.jpg'
+                    'https://cdn.shoplightspeed.com/shops/633289/files/34476377/lg-lg-27-ultrafine-5k-display-5120x2880.jpg',
+
+                    'https://shotkit.com/wp-content/uploads/bb-plugin/cache/Ultrafine-monitor-review-landscape-9aeb8d05c3a998f74abda4a7708db335-zybravgx2q47.jpg'
                 ])
             ],
             [
@@ -88,8 +89,8 @@ class ProductSeeder extends Seeder
                 'stock' => 35,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://store.google.com/product/pixel_8_pro_specs_images/image1.jpg',
-                    'https://www.androidauthority.com/wp-content/uploads/2023/10/Google-Pixel-8-Pro-back-standing.jpg'
+                    'https://lifemobile.lk/wp-content/uploads/2023/10/8-pro-1.jpg',
+                    'https://xmobile.lk/wp-content/uploads/2023/10/1-49.jpg'
                 ])
             ],
             [
@@ -101,8 +102,8 @@ class ProductSeeder extends Seeder
                 'stock' => 15,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://assets2.razerzone.com/images/blade-14-2023/blade14-2023-kv-desktop.jpg',
-                    'https://www.digitaltrends.com/wp-content/uploads/2023/01/Razer-Blade-14-2022-review-04.jpg'
+                    'https://m.media-amazon.com/images/I/712g5R0vkbL.jpg',
+                    'https://assets3.razerzone.com/j2qzPzS7udLMbv5T9CIA_pk8fPw=/1199x799/https%3A%2F%2Fhybrismediaprod.blob.core.windows.net%2Fsys-master-phoenix-images-container%2Fhfb%2Fh17%2F9724563292190%2F240109-blade14-p10-black-1500x1000-5.jpg'
                 ])
             ],
             [
@@ -114,8 +115,8 @@ class ProductSeeder extends Seeder
                 'stock' => 20,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://www.garmin.com/en/products/sports-fitness/fenix7/variants/fenix7-pro-solar-edition-titanium-carbon-gray-dlc-coated-with-black-band.jpg',
-                    'https://cdn.mos.cms.futurecdn.net/UWPZ3j2gzqLM6MTQLssK5j.jpg'
+                    'https://connectthewatts.com/wp-content/uploads/sites/11/2023/06/Garmin-Fenix-7-Pro-Review.jpg?quality=82&strip=all',
+                    'https://res.garmin.com/transform/image/upload/b_rgb:FFFFFF,c_pad,dpr_2.0,f_auto,h_400,q_auto,w_400/c_pad,h_400,w_400/v1/Product_Images/en/products/010-02777-10/v/cf-xl?pgw=1'
                 ])
             ],
             [
@@ -127,8 +128,8 @@ class ProductSeeder extends Seeder
                 'stock' => 25,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://www.apple.com/newsroom/images/product/ipad/standard/apple-ipad-pro-model-unspec-202204_big.jpg.large.jpg',
-                    'https://images.macrumors.com/article-new/2022/10/ipad-pro-2022-1.jpg'
+                    'https://celltronics.lk/wp-content/uploads/2022/10/Apple-iPad-Pro-M2-12.9-inch-6th-Gen-Wi-Fi.jpg',
+                    'https://rangashopping.lk/wp-content/uploads/2023/01/iPad-Pro-12.9-Inch-Case-20224th-Gen-20213rd-Gen-20202nd-Gen-with-Pencil-Holder.jpg'
                 ])
             ],
             [
@@ -140,8 +141,8 @@ class ProductSeeder extends Seeder
                 'stock' => 40,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://www.apple.com/newsroom/images/product/airpods/standard/apple-airpods-pro-2nd-gen-hero_big.jpg.large.jpg',
-                    'https://images.macrumors.com/article-new/2022/09/airpods-pro-2-1.jpg'
+                    'https://appleasia.lk/wp-content/uploads/2024/09/AirPods-Pro-2nd-generation-with-MagSafe-Charging-Case-USB%E2%80%91C1.jpg',
+                    'https://img.drz.lazcdn.com/static/lk/p/b8036f7f19082938a4ec53c83dcd4648.jpg_720x720q80.jpg'
                 ])
             ],
             [
@@ -153,8 +154,8 @@ class ProductSeeder extends Seeder
                 'stock' => 15,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/u-series/u3223qe/media-gallery/monitor-u3223qe-black-gallery-1.psd?fmt=png-alpha&pscan=auto&scl=1&wid=3337&hei=2417&qlt=100,1&resMode=sharp2&size=3337,2417&chrss=full&imwidth=5000',
-                    'https://www.digitaltrends.com/wp-content/uploads/2022/03/Dell-UltraSharp-32-4K-USB-C-Hub-Monitor-U3223QE-review-04.jpg'
+                    'https://geniusmobile.lk/wp-content/uploads/2024/02/MTJV3.jpeg',
+                    'https://appleasia.lk/wp-content/uploads/2024/09/AirPods-Pro-2nd-generation-with-MagSafe-Charging-Case-USB%E2%80%91C4.jpg'
                 ])
             ],
             [
@@ -166,8 +167,8 @@ class ProductSeeder extends Seeder
                 'stock' => 30,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://nothing.tech/cdn/shop/files/Phone-2-Dark-Grey-Front_800x.png',
-                    'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Nothing_Phone_2_official_image_4.jpg'
+                    'https://intl.nothing.tech/cdn/shop/files/phone-2-black_2d5e1e18-c3ed-41cd-9779-921276ce0502_750x.png?v=1688994876',
+                    'https://media.wired.com/photos/64af0487da92561daff93c58/1:1/w_1490,h_1490,c_limit/Nothing-Phone-2-Review-Featured-Gear.png'
                 ])
             ],
             [
@@ -179,8 +180,8 @@ class ProductSeeder extends Seeder
                 'stock' => 25,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://images.samsung.com/is/image/samsung/p6pim/uk/2401/gallery/uk-galaxy-s24-ultra-s928-sm-s928bzkcxeu-thumb-539972143',
-                    'https://www.trustedreviews.com/wp-content/uploads/sites/54/2024/01/Samsung-Galaxy-S24-Ultra-back-cameras.jpg'
+                    'https://idealz.lk/wp-content/uploads/2024/02/S24-Ultra-Violet.jpg',
+                    'https://www.zdnet.com/a/img/2024/02/02/1bfa7d30-112c-4906-83a7-ce12551b7b16/galaxy-s24-ultra.jpg'
                 ])
             ],
             [
@@ -192,8 +193,8 @@ class ProductSeeder extends Seeder
                 'stock' => 12,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://dlcdnwebimgs.asus.com/gain/F8B5CE76-4528-4F1B-8F3A-EABEBD5B8485',
-                    'https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/2024_ROG_Zephyrus_G14_G16_1.jpg'
+                    'https://www.pcworld.com/wp-content/uploads/2024/04/G14_edited1.jpg?quality=50&strip=all',
+                    'https://assetsio.gnwcdn.com/asus-rog-zephyrus-g14-2022-(1).jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp'
                 ])
             ],
             [
@@ -205,8 +206,8 @@ class ProductSeeder extends Seeder
                 'stock' => 18,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/airpods-max-hero-select-202011?wid=940&hei=1112&fmt=jpeg&qlt=90&.v=1604709293000',
-                    'https://www.soundguys.com/wp-content/uploads/2021/01/Apple-AirPods-Max-side-view.jpg'
+                    'https://idealz.lk/wp-content/uploads/2021/04/Apple-Airpods-Max-Green.jpg',
+                    'https://www.apple.com/v/airpods-max/h/images/overview/product-stories/anc/anc_airpod_max_lifestyle__duzobvqwpz42_large.jpg'
                 ])
             ],
             [
@@ -218,8 +219,8 @@ class ProductSeeder extends Seeder
                 'stock' => 8,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://images.samsung.com/is/image/samsung/p6pim/uk/ls49cg954suxen/gallery/uk-odyssey-g95sc-ls49cg954suxen-537265463',
-                    'https://cdn.mos.cms.futurecdn.net/yWRrgThkjPE4ECvBaXKDki.jpg'
+                    'https://m.media-amazon.com/images/I/711HTxM8v2L._AC_SL1500_.jpg',
+                    'https://assetsio.gnwcdn.com/samsung%20odyssey%20g9%20review.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp'
                 ])
             ],
             [
@@ -231,8 +232,8 @@ class ProductSeeder extends Seeder
                 'stock' => 35,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/ipad-air-select-wifi-blue-202203_GEO_US?wid=940&hei=1112&fmt=png-alpha&.v=1645065732688',
-                    'https://www.digitaltrends.com/wp-content/uploads/2022/03/ipad-air-2022-review-dan-baker-11.jpg'
+                    'https://thundermac.com/wp-content/uploads/2023/06/ipad-air-5-03-01-scaled.jpg',
+                    'https://www.zdnet.com/a/img/resize/6f337795d0a771638efcebabadf66a5cce822b74/2022/03/15/76da2e7a-ef3a-4cfe-afc1-46314426570d/2022-ipad-air-fifth-generation-4.jpg?auto=webp&width=1280'
                 ])
             ],
             [
@@ -243,10 +244,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 1, // Smartphones category
                 'stock' => 18,
                 'featured' => true,
-                'image_urls' => json_encode([
-                    'https://lh3.googleusercontent.com/9_VvKUZMpqvwajcCPvh7GKsFVxKmWR7EfHkM7YqL7pDQm2mB7h4PQdZzqJSHVh4QUXebPQ4-kHlt_WG8=rw-w1200',
-                    'https://lh3.googleusercontent.com/PB7cHvPfJRGxZMAP7gZaHiFGfVTCPfV-VxUQUz8eQ8Ov_QNGhKgf0vx9OCZIgdPuHKC5tY3MvxrWPQc=rw-w1200'
-                ])
+                'image_urls' => json_encode([])
             ],
             [
                 'name' => 'ASUS ROG Strix G17 Gaming Laptop',
@@ -256,10 +254,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 2, // Laptops category
                 'stock' => 10,
                 'featured' => true,
-                'image_urls' => json_encode([
-                    'https://dlcdnwebimgs.asus.com/gain/F93C5BC3-147F-4831-9EEF-2B72689D93BE/w1000/h732',
-                    'https://dlcdnwebimgs.asus.com/gain/A8B2C8BB-9C97-474B-9C34-8B8A1C435B07/w1000/h732'
-                ])
+                'image_urls' => json_encode([])
             ],
             [
                 'name' => 'Apple Watch Series 9',
@@ -269,9 +264,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 4, // Wearables category
                 'stock' => 35,
                 'featured' => true,
-                'image_urls' => json_encode([
-                    'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/watch-s9-41-alum-midnight-cell-midnight-sport-band-202309_GEO_US?wid=1200&hei=630&fmt=jpeg&qlt=95&.v=1693527003597',
-                ])
+                'image_urls' => json_encode([])
             ],
             [
                 'name' => 'Sony WF-1000XM5',
@@ -281,10 +274,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 5, // Audio category
                 'stock' => 25,
                 'featured' => true,
-                'image_urls' => json_encode([
-                    'https://electronics.sony.com/image/5d02da5c4095876280cd4d46dd6c2429?fmt=png-alpha&wid=1200',
-                    'https://www.sony.com/image/5c908d474d1cb2c5c9c461a25de4b90c?fmt=png-alpha&wid=1200'
-                ])
+                'image_urls' => json_encode([])
             ],
             [
                 'name' => 'Microsoft Surface Laptop Studio 2',
@@ -294,10 +284,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 2, // Laptops category
                 'stock' => 15,
                 'featured' => true,
-                'image_urls' => json_encode([
-                    'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW16e2d',
-                    'https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RW15Zy8'
-                ])
+                'image_urls' => json_encode([])
             ],
             [
                 'name' => 'Xiaomi Pad 6',
@@ -307,10 +294,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 3, // Tablets category
                 'stock' => 30,
                 'featured' => false,
-                'image_urls' => json_encode([
-                    'https://i02.appmifile.com/591_operator_sg/10/05/2023/ce8633fc86a036956fd4b7f35ba61b38.png',
-                    'https://i02.appmifile.com/726_operator_sg/10/05/2023/bf8f45dd4f0e1389e96d4d54bda78b21.png'
-                ])
+                'image_urls' => json_encode([])
             ],
             [
                 'name' => 'Fitbit Sense 2',
@@ -320,10 +304,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 4, // Wearables category
                 'stock' => 40,
                 'featured' => false,
-                'image_urls' => json_encode([
-                    'https://www.fitbit.com/global/content/dam/fitbit/global/pdp/devices/sense-2/hero-static/sense2-blue-mist.png',
-                    'https://www.fitbit.com/global/content/dam/fitbit/global/pdp/devices/sense-2/features/sense2-stress-management.jpg'
-                ])
+                'image_urls' => json_encode([])
             ],
             [
                 'name' => 'Dell Alienware 34 QD-OLED',
@@ -333,10 +314,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 6, // Monitors category
                 'stock' => 12,
                 'featured' => true,
-                'image_urls' => json_encode([
-                    'https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/alienware/aw3423dw/media-gallery/monitor-alienware-aw3423dw-gallery-1.psd?fmt=png-alpha',
-                    'https://i.dell.com/is/image/DellContent/content/dam/ss2/product-images/dell-client-products/peripherals/monitors/alienware/aw3423dw/media-gallery/monitor-alienware-aw3423dw-gallery-3.psd?fmt=png-alpha'
-                ])
+                'image_urls' => json_encode([])
             ],
         ];
 

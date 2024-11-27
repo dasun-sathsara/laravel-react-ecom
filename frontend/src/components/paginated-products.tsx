@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { Product } from '@/components/product';
+import { Product } from '@/components/product-card';
 import { ProductLoading } from '@/components/product-loading';
 import {
     Pagination,

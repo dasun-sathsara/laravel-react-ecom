@@ -107,6 +107,7 @@ class ProductController extends Controller
             Product::with(['category', 'images'])
                 ->where('featured', true)
                 ->get()
+                ->take(8)
         );
     }
 

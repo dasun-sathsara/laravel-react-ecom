@@ -4,4 +4,25 @@ Backend Details:
 
 TODO:
 
-Improve the look of the product component slighly. Add a badge in the top right corner of the product image to show the discount percentage if any.
+Create a zustand store to fetch products and keep other state data related to it. I have a created one for authentication (auth-store.ts).
+
+Create a function to fetch featured products from the url: `http://127.0.0.1:8000/api/featured-products`
+It will return a JSON response as follows:
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "MacBook Pro 16-inch",
+            "description": "The MacBook Pro 16-inch with Apple M1 Pro chip, 16GB RAM, and a 1TB SSD, designed for professional-grade performance and stunning visuals.",
+            "featured": 1,
+            "price": 2499,
+            "discountedPrice": 2299.99,
+            "stock": 15,
+            "categoryName": "Laptops",
+            "imageUrl": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16-space-m1-2021?wid=2000&hei=2000&fmt=jpeg&qlt=90&.v=1643239951000"
+        },
+        ...
+    ]
+}
+
+Then, update the featured-products.tsx file to display the fetched data.

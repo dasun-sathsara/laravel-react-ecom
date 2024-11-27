@@ -199,8 +199,7 @@ const CheckoutPage = () => {
                                 className="w-full"
                                 size="lg"
                                 onClick={handleCheckout}
-                                disabled={cartItems.length === 0}
-                            >
+                                disabled={cartItems.length === 0}>
                                 Proceed to Payment
                             </Button>
                         </CardFooter>

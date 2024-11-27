@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Container } from '@/components/ui/container';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useAuthStore } from '@/store/auth-store';
@@ -22,6 +22,10 @@ export function LoginPage() {
     const { toast } = useToast();
 
     const navigate = useNavigate();
+
+    const location = useLocation();
+
+    const from = location.state?.from?.pathname || '/';
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
@@ -54,12 +58,18 @@ export function LoginPage() {
                 duration: 3000,
             });
 
+            // Redirect after successful login
             setTimeout(() => {
-                if (isAdmin()) {
-                    navigate('/admin/dashboard', { replace: true });
-                    return;
+                if (from === '/') {
+                    // If there's no specific redirect path, use default admin/user routes
+                    if (isAdmin()) {
+                        navigate('/admin/dashboard', { replace: true });
+                    } else {
+                        navigate('/', { replace: true });
+                    }
                 } else {
-                    navigate('/', { replace: true });
+                    // Redirect to the original requested page
+                    navigate(from, { replace: true });
                 }
             }, 2000);
         }

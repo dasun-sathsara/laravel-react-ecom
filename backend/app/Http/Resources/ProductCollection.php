@@ -24,8 +24,9 @@ class ProductCollection extends ResourceCollection
                     'price' => $product->price,
                     'discountedPrice' => $product->discounted_price,
                     'stock' => $product->stock,
+                    'categoryId' => $product->category->id,
                     'categoryName' => $product->category->name,
-                    'imageUrl' => $product->images->first() ? $product->images->first()->url : null,
+                    'imageUrl' => $product->images->first()?->url,
                 ];
             }),
         ];

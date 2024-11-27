@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import type { Product as ProductType } from '@/types/product';
+import type { ProductCard as ProductCardType } from '@/types/product';
 
 interface ProductProps {
-    product: ProductType;
+    product: ProductCardType;
     onAddToCart?: () => void;
     onClick?: () => void;
 }
@@ -16,7 +16,7 @@ export function Product({ product, onAddToCart, onClick }: ProductProps) {
     return (
         <Card className="group relative cursor-pointer" onClick={onClick}>
             <CardContent className="p-0">
-                <div className="relative aspect-square overflow-hidden rounded-t-lg">
+                <div className="relative aspect-square overflow-hidden rounded-t-lg border border-border/80 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]">
                     {!isImageLoaded && <div className="absolute inset-0 bg-muted animate-pulse" />}
                     {product.discountedPrice && product.discountedPrice < product.price && (
                         <Badge variant="default" className="absolute top-2 right-2 z-10">
@@ -24,15 +24,18 @@ export function Product({ product, onAddToCart, onClick }: ProductProps) {
                         </Badge>
                     )}
                     <img
-                        src={product.primaryImageUrl}
+                        src={product.imageUrl}
                         alt={product.name}
-                        className={`object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ${isImageLoaded ? 'opacity-100' : 'opacity-0'
-                            }`}
+                        className={`object-cover w-full h-full group-hover:scale-105 transition-transform duration-300 ${
+                            isImageLoaded ? 'opacity-100' : 'opacity-0'
+                        }`}
                         onLoad={() => setIsImageLoaded(true)}
                     />
                 </div>
                 <div className="p-6">
-                    <h3 className="font-semibold text-lg group-hover:text-primary transition-colors line-clamp-2">{product.name}</h3>
+                    <h3 className="font-semibold text-lg group-hover:text-primary transition-colors line-clamp-1">
+                        {product.name}
+                    </h3>
                     <div className="mt-2 flex items-center gap-2">
                         <span className="font-medium text-primary text-lg">
                             ${(product.discountedPrice || product.price).toFixed(2)}

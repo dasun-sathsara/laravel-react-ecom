@@ -11,6 +11,7 @@ import { HomePage } from './pages/misc/home';
 import { LoginPage } from './pages/auth/sign-in';
 import { Navbar } from './components/navbar';
 import { ProductPage } from './pages/products/product-info';
+import { ProtectedRoute } from './components/protected-route';
 import { ShopPage } from './pages/products/all-products';
 import { SignUpPage } from './pages/auth/sign-up';
 import { Toaster } from './components/ui/toaster';
@@ -31,13 +32,56 @@ function App() {
                         <Route path="/categories" element={<CategoriesPage />} />
                         <Route path="/categories/:id" element={<CategoryPage />} />
                         <Route path="/products/:id" element={<ProductPage />} />
-                        <Route path="/checkout" element={<CheckoutPage />} />
-                        <Route path="/orders/success" element={<OrderSuccessPage />} />
-                        <Route path="/orders/failure" element={<OrderFailurePage />} />
-                        <Route path="/orders" element={<OrdersPage />} />
-                        <Route path="/admin/dashboard" element={<DashboardPage />} />
-                        <Route path="/admin/products/:id/edit" element={<EditProductPage />} />
-
+                        // Protected routes
+                        <Route
+                            path="/checkout"
+                            element={
+                                <ProtectedRoute>
+                                    <CheckoutPage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/orders/success"
+                            element={
+                                <ProtectedRoute>
+                                    <OrderSuccessPage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/orders/failure"
+                            element={
+                                <ProtectedRoute>
+                                    <OrderFailurePage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/orders"
+                            element={
+                                <ProtectedRoute>
+                                    <OrdersPage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/admin/dashboard"
+                            element={
+                                <ProtectedRoute requireAdmin>
+                                    <DashboardPage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        <Route
+                            path="/admin/products/:id/edit"
+                            element={
+                                <ProtectedRoute requireAdmin>
+                                    <EditProductPage />
+                                </ProtectedRoute>
+                            }
+                        />
+                        // 404
                         <Route path="*" element={<NotFoundPage />} />
                     </Routes>
                 </main>
