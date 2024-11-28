@@ -16,12 +16,16 @@ interface AuthState {
     isAdmin: () => boolean;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+const initialState = {
     user: null,
     token: localStorage.getItem('token'),
     isAuthenticated: !!localStorage.getItem('token'),
     isLoading: false,
     error: null,
+};
+
+export const useAuthStore = create<AuthState>((set, get) => ({
+    ...initialState,
 
     signup: async (name: string, email: string, password: string, passwordConfirmation: string): Promise<boolean> => {
         try {
@@ -68,10 +72,7 @@ export const useAuthStore = create<AuthState>((set) => ({
 
             const { access_token, user } = response.data;
 
-            // Store token in localStorage
             localStorage.setItem('token', access_token);
-
-            // Update api default headers for subsequent requests
             api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
 
             set({
@@ -85,10 +86,8 @@ export const useAuthStore = create<AuthState>((set) => ({
             return true;
         } catch (error: unknown) {
             if (error instanceof AxiosError && error.response?.status === 422) {
-                console.log(error.response?.data);
-
                 set({
-                    error: error.response!.data!.message,
+                    error: error.response.data.message,
                     isLoading: false,
                 });
             } else {
@@ -102,41 +101,26 @@ export const useAuthStore = create<AuthState>((set) => ({
         }
     },
 
-    logout: async () => {
+    logout: async (): Promise<boolean> => {
         try {
-            set({ isLoading: true });
+            set({ isLoading: true, error: null });
 
-            // Call the logout endpoint
-            await api.post(
-                '/logout',
-                {},
-                {
-                    headers: {
-                        Authorization: `Bearer ${useAuthStore.getState().token}`,
-                    },
-                },
-            );
+            await api.post('/logout');
 
-            // Clear token from localStorage
             localStorage.removeItem('token');
-
-            // Remove Authorization header
             delete api.defaults.headers.common['Authorization'];
 
-            // Reset store state
             set({
-                user: null,
+                ...initialState,
                 token: null,
                 isAuthenticated: false,
-                isLoading: false,
-                error: null,
             });
 
             return true;
         } catch (error: unknown) {
             if (error instanceof AxiosError) {
                 set({
-                    error: error.response?.data?.message || 'Error during logout',
+                    error: error.response?.data?.message || 'Failed to logout',
                     isLoading: false,
                 });
             } else {
@@ -152,5 +136,8 @@ export const useAuthStore = create<AuthState>((set) => ({
 
     clearError: () => set({ error: null }),
 
-    isAdmin: (): boolean => useAuthStore.getState().user?.role === 'admin',
+    isAdmin: () => {
+        const { user } = get();
+        return user?.role === 'admin';
+    },
 }));

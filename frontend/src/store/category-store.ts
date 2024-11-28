@@ -1,5 +1,6 @@
 import { api } from '@/lib/api';
 import { create } from 'zustand';
+import { AxiosError } from 'axios';
 import type { Category } from '@/types/category';
 
 interface CategoryState {
@@ -10,10 +11,14 @@ interface CategoryState {
     clearError: () => void;
 }
 
-export const useCategoryStore = create<CategoryState>((set) => ({
+const initialState = {
     categories: [],
     isLoading: false,
     error: null,
+};
+
+export const useCategoryStore = create<CategoryState>((set) => ({
+    ...initialState,
 
     fetchCategories: async () => {
         try {
@@ -24,12 +29,20 @@ export const useCategoryStore = create<CategoryState>((set) => ({
             set({
                 categories: response.data.data,
                 isLoading: false,
+                error: null,
             });
-        } catch {
-            set({
-                error: 'Failed to fetch categories',
-                isLoading: true,
-            });
+        } catch (error: unknown) {
+            if (error instanceof AxiosError) {
+                set({
+                    error: error.response?.data?.message || 'Failed to fetch categories',
+                    isLoading: false,
+                });
+            } else {
+                set({
+                    error: 'An error occurred while fetching categories',
+                    isLoading: false,
+                });
+            }
         }
     },
 

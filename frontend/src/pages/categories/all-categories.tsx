@@ -65,7 +65,7 @@ export function CategoriesPage() {
                       ))
                     : categories.map((category) => (
                           <Link
-                              to={`/category/${category.id}`}
+                              to={`/categories/${category.id}`}
                               key={category.id}
                               className="group block transition-transform hover:-translate-y-0.5 duration-300">
                               <Card className="overflow-hidden border hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-md">

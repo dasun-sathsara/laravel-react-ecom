@@ -18,13 +18,13 @@ Route::prefix('categories')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
 });
 
+
+
 // Public Product Routes
 Route::prefix('products')->group(function () {
     Route::get('/', [ProductController::class, 'index']);
     Route::get('/{product}', [ProductController::class, 'show'])
         ->missing(fn() => response()->json(['message' => 'Product not found'], 404));
-    Route::get('/category/{categoryId}', [ProductController::class, 'byCategory'])
-        ->missing(fn() => response()->json(['message' => 'Category not found'], 404));
 });
 
 Route::get('/featured-products', [ProductController::class, 'featured']);

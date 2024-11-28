@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
@@ -11,11 +12,18 @@ use App\Http\Resources\ProductCollection;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return new ProductCollection(
-            Product::with(['category', 'images'])->paginate(12)
-        );
+        $query = Product::with(['category', 'images']);
+
+        if ($categoryId = $request->query('categoryId')) {
+            if (!Category::find($categoryId)) {
+                return response()->json(['message' => 'Category not found'], 404);
+            }
+            $query->where('category_id', $categoryId);
+        }
+
+        return new ProductCollection($query->paginate(12));
     }
 
     public function store(StoreProductRequest $request)
@@ -108,15 +116,6 @@ class ProductController extends Controller
                 ->where('featured', true)
                 ->get()
                 ->take(8)
-        );
-    }
-
-    public function byCategory($categoryId)
-    {
-        return new ProductCollection(
-            Product::with(['category', 'images'])
-                ->where('category_id', $categoryId)
-                ->get()
         );
     }
 }
