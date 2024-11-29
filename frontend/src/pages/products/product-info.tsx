@@ -1,12 +1,13 @@
+import { AlertCircle, ArrowLeft, Minus,Plus, ShoppingCart } from 'lucide-react';
 import { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate,useParams } from 'react-router-dom';
+
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
-import { ShoppingCart, ArrowLeft, AlertCircle, Plus, Minus } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
 import { Input } from '@/components/ui/input';
+import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/hooks/use-toast';
 
 export function ProductPage() {
     const { productId } = useParams();

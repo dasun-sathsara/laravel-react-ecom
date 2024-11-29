@@ -1,6 +1,7 @@
-import { api } from '@/lib/api';
-import { create } from 'zustand';
 import { AxiosError } from 'axios';
+import { create } from 'zustand';
+
+import { api } from '@/lib/api';
 import type { ProductCard as ProductCardType } from '@/types/product';
 
 interface PaginationState {

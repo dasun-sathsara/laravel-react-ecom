@@ -1,22 +1,24 @@
-import CategoryPage from './pages/products/products-by-category';
-import CheckoutPage from './pages/checkout/checkout';
-import DashboardPage from './pages/misc/dashboard';
-import EditProductPage from './pages/products/edit-product';
-import OrderFailurePage from './pages/orders/order-failure';
-import OrdersPage from './pages/orders/my-orders';
-import OrderSuccessPage from './pages/orders/order-success';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { Footer } from './components/footer';
-import { HomePage } from './pages/misc/home';
-import { LoginPage } from './pages/auth/sign-in';
-import { Navbar } from './components/navbar';
-import { ProductPage } from './pages/products/product-info';
-import { ProtectedRoute } from './components/protected-route';
-import { ShopPage } from './pages/products/all-products';
-import { SignUpPage } from './pages/auth/sign-up';
-import { Toaster } from './components/ui/toaster';
-import { CategoriesPage } from './pages/categories/all-categories';
-import { NotFoundPage } from './pages/misc/not-found';
+
+import { Footer } from '@/components/footer';
+import { Navbar } from '@/components/navbar';
+import { ProtectedRoute } from '@/components/protected-route';
+import { Toaster } from '@/components/ui/toaster';
+import { LoginPage } from '@/pages/auth/sign-in';
+import { SignUpPage } from '@/pages/auth/sign-up';
+import { CategoriesPage } from '@/pages/categories/all-categories';
+import CheckoutPage from '@/pages/checkout/checkout';
+import DashboardPage from '@/pages/misc/dashboard';
+import { HomePage } from '@/pages/misc/home';
+import { NotFoundPage } from '@/pages/misc/not-found';
+import OrdersPage from '@/pages/orders/my-orders';
+import OrderFailurePage from '@/pages/orders/order-failure';
+import OrderSuccessPage from '@/pages/orders/order-success';
+import { ShopPage } from '@/pages/products/all-products';
+import EditProductPage from '@/pages/products/edit-product';
+import { ProductPage } from '@/pages/products/product-info';
+import CategoryPage from '@/pages/products/products-by-category';
+
 
 function App() {
     return (

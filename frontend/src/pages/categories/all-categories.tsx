@@ -1,12 +1,13 @@
 import { ArrowRight } from 'lucide-react';
+import { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
 import { useCategoryStore } from '@/store/category-store';
-import { Skeleton } from '@/components/ui/skeleton';
 
 function CategoryCardSkeleton() {
     return (

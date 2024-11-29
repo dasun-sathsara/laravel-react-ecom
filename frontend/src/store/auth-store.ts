@@ -1,6 +1,7 @@
-import { create } from 'zustand';
-import { api } from '@/lib/api';
 import { AxiosError } from 'axios';
+import { create } from 'zustand';
+
+import { api } from '@/lib/api';
 import type { User } from '@/types/user';
 
 interface AuthState {

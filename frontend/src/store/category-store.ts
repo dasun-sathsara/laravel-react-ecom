@@ -1,6 +1,7 @@
-import { api } from '@/lib/api';
-import { create } from 'zustand';
 import { AxiosError } from 'axios';
+import { create } from 'zustand';
+
+import { api } from '@/lib/api';
 import type { Category } from '@/types/category';
 
 interface CategoryState {

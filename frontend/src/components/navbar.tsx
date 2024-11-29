@@ -1,10 +1,12 @@
 import { ShoppingBag } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+
+import { useToast } from '@/hooks/use-toast';
+import { useAuthStore } from '@/store/auth-store';
+
+import { CheckoutButton } from './checkout-button';
 import { Button } from './ui/button';
 import { Container } from './ui/container';
-import { Link, useNavigate } from 'react-router-dom';
-import { useAuthStore } from '@/store/auth-store';
-import { CheckoutButton } from './checkout-button';
-import { useToast } from '@/hooks/use-toast';
 
 const navigation = [
     { name: 'Home', href: '/' },

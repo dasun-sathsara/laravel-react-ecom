@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useToast } from '@/hooks/use-toast';
+
 import { Product } from '@/components/product-card';
 import { ProductLoading } from '@/components/product-loading';
 import {
@@ -11,6 +11,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from '@/components/ui/pagination';
+import { useToast } from '@/hooks/use-toast';
 import { useProductStore } from '@/store/product-store';
 
 interface ProductsGridProps {

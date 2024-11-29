@@ -1,6 +1,7 @@
-import { Container } from './ui/container';
-import { Card, CardContent } from './ui/card';
 import { Star } from 'lucide-react';
+
+import { Card, CardContent } from './ui/card';
+import { Container } from './ui/container';
 
 const testimonials = [
     {

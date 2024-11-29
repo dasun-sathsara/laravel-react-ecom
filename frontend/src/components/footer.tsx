@@ -1,7 +1,9 @@
-import { Container } from './ui/container';
 import { ShoppingBag } from 'lucide-react';
-import { useAuthStore } from '@/store/auth-store';
 import { Link } from 'react-router-dom';
+
+import { useAuthStore } from '@/store/auth-store';
+
+import { Container } from './ui/container';
 
 const baseLinks = [
     { name: 'Home', href: '/' },

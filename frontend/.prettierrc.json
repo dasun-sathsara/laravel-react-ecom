@@ -1,10 +1,22 @@
 {
-   "trailingComma": "all",
-   "quoteProps": "as-needed",
-   "arrowParens": "always",
-   "tabWidth": 4,
-   "semi": true,
-   "printWidth": 120,
-   "singleQuote": true,
-   "bracketSameLine": true
+    "trailingComma": "all",
+    "quoteProps": "as-needed",
+    "arrowParens": "always",
+    "tabWidth": 4,
+    "semi": true,
+    "printWidth": 120,
+    "singleQuote": true,
+    "bracketSameLine": true,
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": "latest"
+    },
+    "plugins": ["simple-import-sort", "import"],
+    "rules": {
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "import/first": "error",
+        "import/newline-after-import": "error",
+        "import/no-duplicates": "error"
+    }
 }

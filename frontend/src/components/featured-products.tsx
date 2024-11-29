@@ -1,10 +1,12 @@
-import { Container } from './ui/container';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
+import { useEffect } from 'react';
+
 import { useToast } from '@/hooks/use-toast';
+import { useProductStore } from '@/store/product-store';
+
 import { Product } from './product-card';
 import { ProductLoading } from './product-loading';
-import { useEffect } from 'react';
-import { useProductStore } from '@/store/product-store';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from './ui/carousel';
+import { Container } from './ui/container';
 
 export function FeaturedProducts() {
     const { toast } = useToast();

@@ -1,8 +1,9 @@
 import { ArrowLeft } from 'lucide-react';
-import { Button } from '../../components/ui/button';
-import { ProductsGrid } from '@/components/paginated-products';
-import { useProductStore } from '@/store/product-store';
 import { useNavigate, useParams } from 'react-router-dom';
+
+import { ProductsGrid } from '@/components/paginated-products';
+import { Button } from '@/components/ui/button';
+import { useProductStore } from '@/store/product-store';
 
 export default function CategoryPage() {
     const { id: categoryId } = useParams();
