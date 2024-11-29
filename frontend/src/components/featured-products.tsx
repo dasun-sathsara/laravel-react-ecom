@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import { useToast } from '@/hooks/use-toast';
 import { useProductsStore } from '@/store/products-store';
@@ -11,20 +11,23 @@ import { Container } from './ui/container';
 export function FeaturedProducts() {
     const { toast } = useToast();
     const { featuredProducts, isLoading, error, fetchFeaturedProducts } = useProductsStore();
+    const prevErrorRef = useRef(error);
 
     useEffect(() => {
         fetchFeaturedProducts();
     }, [fetchFeaturedProducts]);
 
     useEffect(() => {
-        if (error) {
-            toast({
-                title: 'Error',
-                description: error,
-                duration: 3000,
-                variant: 'destructive',
-            });
-        }
+        if (!error || error === prevErrorRef.current) return;
+
+        toast({
+            title: 'Error',
+            description: error,
+            duration: 3000,
+            variant: 'destructive',
+        });
+
+        prevErrorRef.current = error;
     }, [error, toast]);
 
     const handleAddToCart = () => {
@@ -61,7 +64,7 @@ export function FeaturedProducts() {
                               ))
                             : featuredProducts.map((product) => (
                                   <CarouselItem key={product.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4">
-                                      <Product product={product} onAddToCart={handleAddToCart}/>
+                                      <Product product={product} onAddToCart={handleAddToCart} />
                                   </CarouselItem>
                               ))}
                     </CarouselContent>
