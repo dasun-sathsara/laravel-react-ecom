@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { create } from 'zustand';
+import { create, StoreApi } from 'zustand';
 
 import { api } from '@/lib/api';
 import type { User } from '@/types/user';
@@ -10,11 +10,19 @@ interface AuthState {
     isAuthenticated: boolean;
     isLoading: boolean;
     error: string | null;
-    signup: (name: string, email: string, password: string, passwordConfirmation: string) => Promise<boolean>;
+    
+    signup: (
+        name: string,
+        email: string,
+        password: string,
+        passwordConfirmation: string
+    ) => Promise<boolean>;
     signin: (email: string, password: string) => Promise<boolean>;
     logout: () => Promise<boolean>;
+    isAdmin: () => Promise<boolean>;
+    fetchUser: () => Promise<void>;
+
     clearError: () => void;
-    isAdmin: () => boolean;
 }
 
 const initialState = {
@@ -25,120 +33,131 @@ const initialState = {
     error: null,
 };
 
-export const useAuthStore = create<AuthState>((set, get) => ({
-    ...initialState,
+const handleError = (error: unknown, set: StoreApi<AuthState>['setState'], defaultMessage: string) => {
+    if (error instanceof AxiosError) {
+        set({
+            error: error.response?.data?.message || defaultMessage,
+            isLoading: false,
+        });
+    } else {
+        set({
+            error: `An error occurred: ${defaultMessage}`,
+            isLoading: false,
+        });
+    }
+};
 
-    signup: async (name: string, email: string, password: string, passwordConfirmation: string): Promise<boolean> => {
-        try {
-            set({ isLoading: true, error: null });
+export const useAuthStore = create<AuthState>((set, get) => {
+    const store = {
+        ...initialState,
 
-            await api.post('/register', {
-                name,
-                email,
-                password,
-                password_confirmation: passwordConfirmation,
-            });
+        signup: async (
+            name: string,
+            email: string,
+            password: string,
+            passwordConfirmation: string
+        ): Promise<boolean> => {
+            try {
+                set({ isLoading: true, error: null });
 
-            set({
-                isLoading: false,
-                error: null,
-            });
-
-            return true;
-        } catch (error: unknown) {
-            if (error instanceof AxiosError && error.response?.status === 422) {
-                set({
-                    error: error.response.data.message,
-                    isLoading: false,
+                await api.post('/register', {
+                    name,
+                    email,
+                    password,
+                    password_confirmation: passwordConfirmation,
                 });
-            } else {
+
                 set({
-                    error: 'An error occurred during signup',
                     isLoading: false,
+                    error: null,
                 });
+
+                return true;
+            } catch (error: unknown) {
+                handleError(error, set, 'An error occurred during signup');
+                return false;
             }
+        },
 
-            return false;
-        }
-    },
+        signin: async (email: string, password: string): Promise<boolean> => {
+            try {
+                set({ isLoading: true, error: null });
 
-    signin: async (email: string, password: string): Promise<boolean> => {
-        try {
-            set({ isLoading: true, error: null });
-
-            const response = await api.post('/login', {
-                email,
-                password,
-            });
-
-            const { access_token, user } = response.data;
-
-            localStorage.setItem('token', access_token);
-            api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
-
-            set({
-                token: access_token,
-                user,
-                isAuthenticated: true,
-                isLoading: false,
-                error: null,
-            });
-
-            return true;
-        } catch (error: unknown) {
-            if (error instanceof AxiosError && error.response?.status === 422) {
-                set({
-                    error: error.response.data.message,
-                    isLoading: false,
+                const response = await api.post('/login', {
+                    email,
+                    password,
                 });
-            } else {
+
+                const { access_token, user } = response.data;
+
+                localStorage.setItem('token', access_token);
+                api.defaults.headers.common['Authorization'] = `Bearer ${access_token}`;
+
                 set({
-                    error: 'An error occurred during login',
+                    token: access_token,
+                    user,
+                    isAuthenticated: true,
                     isLoading: false,
+                    error: null,
                 });
+
+                return true;
+            } catch (error: unknown) {
+                handleError(error, set, 'An error occurred during login');
+                return false;
             }
+        },
 
-            return false;
-        }
-    },
+        logout: async (): Promise<boolean> => {
+            try {
+                set({ isLoading: true, error: null });
 
-    logout: async (): Promise<boolean> => {
-        try {
-            set({ isLoading: true, error: null });
+                await api.post('/logout');
 
-            await api.post('/logout');
+                localStorage.removeItem('token');
+                delete api.defaults.headers.common['Authorization'];
 
-            localStorage.removeItem('token');
-            delete api.defaults.headers.common['Authorization'];
-
-            set({
-                ...initialState,
-                token: null,
-                isAuthenticated: false,
-            });
-
-            return true;
-        } catch (error: unknown) {
-            if (error instanceof AxiosError) {
                 set({
-                    error: error.response?.data?.message || 'Failed to logout',
-                    isLoading: false,
+                    ...initialState,
+                    token: null,
+                    isAuthenticated: false,
                 });
-            } else {
-                set({
-                    error: 'An error occurred during logout',
-                    isLoading: false,
-                });
+
+                return true;
+            } catch (error: unknown) {
+                handleError(error, set, 'Failed to logout');
+                return false;
             }
+        },
 
-            return false;
-        }
-    },
+        clearError: () => set({ error: null }),
 
-    clearError: () => set({ error: null }),
+        isAdmin: async () => {
+            const user = get().user;
+            return user?.role === 'admin';
+        },
 
-    isAdmin: () => {
-        const { user } = get();
-        return user?.role === 'admin';
-    },
-}));
+        fetchUser: async () => {
+            try {
+                set({ isLoading: true, error: null });
+                api.defaults.headers.common['Authorization'] = `Bearer ${get().token}`;
+                const response = await api.get('http://127.0.0.1:8000/api/user');
+                set({
+                    user: response.data,
+                    isAuthenticated: true,
+                    isLoading: false,
+                    error: null,
+                });
+            } catch (error: unknown) {
+                handleError(error, set, 'Failed to fetch user');
+            }
+        },
+    };
+
+    if (store.isAuthenticated) {
+        store.fetchUser();
+        api.defaults.headers.common['Authorization'] = `Bearer ${store.token}`;
+    }
+
+    return store;
+});
