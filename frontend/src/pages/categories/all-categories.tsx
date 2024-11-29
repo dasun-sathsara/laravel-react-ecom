@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
-import { useCategoryStore } from '@/store/categories-store';
+import { useCategoriesStore } from '@/store/categories-store';
 
 function CategoryCardSkeleton() {
     return (
@@ -31,7 +31,7 @@ function CategoryCardSkeleton() {
 
 export function CategoriesPage() {
     const { toast } = useToast();
-    const { categories, isLoading, error, fetchCategories } = useCategoryStore();
+    const { categories, isLoading, error, fetchCategories } = useCategoriesStore();
 
     useEffect(() => {
         fetchCategories();

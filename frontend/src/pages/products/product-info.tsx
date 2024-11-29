@@ -9,12 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
-import { useProductStore } from '@/store/product-store';
+import { useProductsStore } from '@/store/products-store';
 
 export function ProductPage() {
     const { id:productId } = useParams();
 
-    const { product, isLoading, error, fetchProduct } = useProductStore();
+    const { selectedProduct, isLoading, error, fetchProduct } = useProductsStore();
 
     const { toast } = useToast();
     const navigate = useNavigate();
@@ -25,25 +25,25 @@ export function ProductPage() {
     }, [productId, fetchProduct]);
 
     const updateQuantity = (newQuantity: number) => {
-        if (!product) return;
+        if (!selectedProduct) return;
 
-        if (newQuantity >= 1 && newQuantity <= product.stock) {
+        if (newQuantity >= 1 && newQuantity <= selectedProduct.stock) {
             setQuantity(newQuantity);
         }
     };
 
     const handleAddToCart = () => {
-        if (!product) return;
+        if (!selectedProduct) return;
         
         toast({
             title: 'Added to cart',
-            description: `${quantity} ${quantity === 1 ? 'unit' : 'units'} of ${product.name} ${quantity === 1 ? 'has' : 'have'
+            description: `${quantity} ${quantity === 1 ? 'unit' : 'units'} of ${selectedProduct.name} ${quantity === 1 ? 'has' : 'have'
                 } been added to your cart.`,
         });
     };
 
     const handleBuyNow = () => {
-        if (!product) return;
+        if (!selectedProduct) return;
 
         handleAddToCart();
         navigate('/checkout');
@@ -90,7 +90,7 @@ export function ProductPage() {
         );
     }
 
-    if (!product) {
+    if (!selectedProduct) {
         return (
             <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-12">
                 <div className="text-center">
@@ -118,14 +118,14 @@ export function ProductPage() {
             <div className="grid md:grid-cols-2 gap-8">
                 {/* Product Images */}
                 <div>
-                    <Carousel className="w-full">
+                    <Carousel className="w-full border rounded-lg p-4">
                         <CarouselContent>
-                            {(product.imageUrls || []).map((image, index) => (
+                            {(selectedProduct.imageUrls || []).map((image, index) => (
                                 <CarouselItem key={index}>
                                     <div className="aspect-square relative overflow-hidden rounded-lg">
                                         <img
                                             src={image}
-                                            alt={`${product.name} - View ${index + 1}`}
+                                            alt={`${selectedProduct.name} - View ${index + 1}`}
                                             className="object-cover w-full h-full"
                                         />
                                     </div>
@@ -141,34 +141,34 @@ export function ProductPage() {
                 <div className="flex flex-col h-full justify-between">
                     <div className="space-y-6">
                         <div>
-                            <h1 className="text-3xl font-bold">{product.name}</h1>
-                            <span className="text-sm text-muted-foreground capitalize">{product.categoryName}</span>
+                            <h1 className="text-3xl font-bold">{selectedProduct.name}</h1>
+                            <span className="text-sm text-muted-foreground capitalize">{selectedProduct.categoryName}</span>
                         </div>
                         <div className="flex items-baseline gap-4">
-                            {product.discountedPrice ? (
+                            {selectedProduct.discountedPrice ? (
                                 <>
-                                    <span className="text-3xl font-bold">${product.discountedPrice.toFixed(2)}</span>
+                                    <span className="text-3xl font-bold">${selectedProduct.discountedPrice.toFixed(2)}</span>
                                     <span className="text-xl text-muted-foreground line-through">
-                                        ${product.price.toFixed(2)}
+                                        ${selectedProduct.price.toFixed(2)}
                                     </span>
                                     <Badge variant="secondary" className="text-sm">
-                                        {Math.round(((product.price - product.discountedPrice) / product.price) * 100)}% OFF
+                                        {Math.round(((selectedProduct.price - selectedProduct.discountedPrice) / selectedProduct.price) * 100)}% OFF
                                     </Badge>
                                 </>
                             ) : (
-                                <span className="text-3xl font-bold">${product.price.toFixed(2)}</span>
+                                <span className="text-3xl font-bold">${selectedProduct.price.toFixed(2)}</span>
                             )}
                         </div>
-                        <p className="text-muted-foreground">{product.description}</p>
+                        <p className="text-muted-foreground">{selectedProduct.description}</p>
                     </div>
 
                     <div className="space-y-6">
                         {/* Stock Information */}
                         <div>
-                            <span className={`text-sm ${product.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                {product.stock > 0 ? (
+                            <span className={`text-sm ${selectedProduct.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                {selectedProduct.stock > 0 ? (
                                     <>
-                                        In Stock ({product.stock} {product.stock === 1 ? 'item' : 'items'} left)
+                                        In Stock ({selectedProduct.stock} {selectedProduct.stock === 1 ? 'item' : 'items'} left)
                                     </>
                                 ) : (
                                     'Out of Stock'
@@ -183,7 +183,7 @@ export function ProductPage() {
                                     variant="outline"
                                     size="icon"
                                     onClick={() => updateQuantity(quantity - 1)}
-                                    disabled={quantity <= 1 || product.stock === 0}>
+                                    disabled={quantity <= 1 || selectedProduct.stock === 0}>
                                     <Minus className="h-4 w-4" />
                                 </Button>
                                 <Input
@@ -191,15 +191,15 @@ export function ProductPage() {
                                     value={quantity}
                                     onChange={(e) => updateQuantity(parseInt(e.target.value) || 1)}
                                     min={1}
-                                    max={product.stock}
+                                    max={selectedProduct.stock}
                                     className="w-20 text-center"
-                                    disabled={product.stock === 0}
+                                    disabled={selectedProduct.stock === 0}
                                 />
                                 <Button
                                     variant="outline"
                                     size="icon"
                                     onClick={() => updateQuantity(quantity + 1)}
-                                    disabled={quantity >= product.stock || product.stock === 0}>
+                                    disabled={quantity >= selectedProduct.stock || selectedProduct.stock === 0}>
                                     <Plus className="h-4 w-4" />
                                 </Button>
                             </div>
@@ -209,14 +209,14 @@ export function ProductPage() {
                                     className="flex-1"
                                     variant="outline"
                                     onClick={handleAddToCart}
-                                    disabled={product.stock === 0}>
+                                    disabled={selectedProduct.stock === 0}>
                                     <ShoppingCart className="mr-2 h-4 w-4" />
                                     Add to Cart
                                 </Button>
                                 <Button
                                     className="flex-1"
                                     onClick={handleBuyNow}
-                                    disabled={product.stock === 0}>
+                                    disabled={selectedProduct.stock === 0}>
                                     Buy Now
                                 </Button>
                             </div>

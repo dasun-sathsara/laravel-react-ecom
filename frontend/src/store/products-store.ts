@@ -2,7 +2,7 @@ import { AxiosError } from 'axios';
 import { create, StoreApi } from 'zustand';
 
 import { api } from '@/lib/api';
-import type { ProductCard as ProductCardType } from '@/types/product';
+import type { Product, ProductCard } from '@/types/product';
 
 import { useAuthStore } from './auth-store';
 
@@ -14,8 +14,10 @@ interface PaginationState {
 }
 
 interface ProductsState {
-    featuredProducts: ProductCardType[];
-    products: ProductCardType[];
+    featuredProducts: ProductCard[];
+    products: ProductCard[];
+
+    selectedProduct: Product | null;
     isLoading: boolean;
     error: string | null;
     pagination: PaginationState;
@@ -23,9 +25,11 @@ interface ProductsState {
 
     fetchFeaturedProducts: () => Promise<void>;
     fetchProducts: (page: number, categoryId?: number) => Promise<void>;
-    addProduct: (product: Omit<ProductCardType, 'id'>) => Promise<void>;
-    updateProduct: (id: number, updatedProduct: Partial<ProductCardType>) => Promise<void>;
+    addProduct: (product: Omit<ProductCard, 'id'>) => Promise<void>;
+    updateProduct: (id: number, updatedProduct: Partial<ProductCard>) => Promise<void>;
     deleteProduct: (id: number) => Promise<void>;
+
+    fetchProduct: (id: string) => Promise<void>;
 
     clearError: () => void;
     reset: () => void;
@@ -55,6 +59,7 @@ const handleError = (error: unknown, set: StoreApi<ProductsState>['setState'], d
 export const useProductsStore = create<ProductsState>((set) => ({
     featuredProducts: [],
     products: [],
+    selectedProduct: null,
     isLoading: false,
     error: null,
     categoryName: null,
@@ -71,7 +76,6 @@ export const useProductsStore = create<ProductsState>((set) => ({
                 isLoading: false,
                 error: null,
             });
-
         } catch (error: unknown) {
             handleError(error, set, 'Failed to fetch featured products');
         }
@@ -124,7 +128,6 @@ export const useProductsStore = create<ProductsState>((set) => ({
                 isLoading: false,
                 error: null,
             }));
-
         } catch (error: unknown) {
             handleError(error, set, 'Failed to add product');
         }
@@ -142,9 +145,7 @@ export const useProductsStore = create<ProductsState>((set) => ({
             set({ isLoading: true, error: null });
             const response = await api.put(`/api/products/${id}`, updatedProduct);
             set((state) => ({
-                products: state.products.map((prod) =>
-                    prod.id === id ? response.data : prod
-                ),
+                products: state.products.map((prod) => (Number(prod.id) === id ? response.data : prod)),
                 isLoading: false,
                 error: null,
             }));
@@ -165,12 +166,26 @@ export const useProductsStore = create<ProductsState>((set) => ({
             set({ isLoading: true, error: null });
             await api.delete(`/api/products/${id}`);
             set((state) => ({
-                products: state.products.filter((prod) => prod.id !== id),
+                products: state.products.filter((prod) => Number(prod.id) !== id),
                 isLoading: false,
                 error: null,
             }));
         } catch (error: unknown) {
             handleError(error, set, 'Failed to delete product');
+        }
+    },
+
+    fetchProduct: async (id) => {
+        try {
+            set({ isLoading: true, error: null });
+            const response = await api.get(`/products/${id}`);
+            set({
+                selectedProduct: response.data.data,
+                isLoading: false,
+                error: null,
+            });
+        } catch (error: unknown) {
+            handleError(error, set, 'Failed to fetch product');
         }
     },
 
@@ -180,8 +195,10 @@ export const useProductsStore = create<ProductsState>((set) => ({
         set({
             featuredProducts: [],
             products: [],
+            selectedProduct: null,
             isLoading: false,
             error: null,
             pagination: initialPaginationState,
+            categoryName: null,
         }),
 }));
