@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -8,14 +9,18 @@ import type { ProductCard as ProductCardType } from '@/types/product';
 interface ProductProps {
     product: ProductCardType;
     onAddToCart?: () => void;
-    onClick?: () => void;
 }
 
-export function Product({ product, onAddToCart, onClick }: ProductProps) {
+export function Product({ product, onAddToCart }: ProductProps) {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const navigate = useNavigate();
+
+    const handleOnClick = (): void => {
+        navigate(`/products/${product.id}`);
+    }
 
     return (
-        <Card className="group relative cursor-pointer" onClick={onClick}>
+        <Card className="group relative cursor-pointer" onClick={handleOnClick}>
             <CardContent className="p-0">
                 <div className="relative aspect-square overflow-hidden rounded-t-lg border border-border/80 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]">
                     {!isImageLoaded && <div className="absolute inset-0 bg-muted animate-pulse" />}

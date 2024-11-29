@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
-import { useCategoryStore } from '@/store/category-store';
+import { useCategoryStore } from '@/store/categories-store';
 
 function CategoryCardSkeleton() {
     return (

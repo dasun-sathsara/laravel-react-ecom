@@ -12,7 +12,7 @@ import {
     PaginationPrevious,
 } from '@/components/ui/pagination';
 import { useToast } from '@/hooks/use-toast';
-import { useProductStore } from '@/store/product-store';
+import { useProductsStore } from '@/store/products-store';
 
 interface ProductsGridProps {
     categoryId?: number;
@@ -26,7 +26,7 @@ export function ProductsGrid({ categoryId }: ProductsGridProps) {
         isLoading,
         pagination: { currentPage, totalProducts, hasNextPage, hasPreviousPage },
         fetchProducts,
-    } = useProductStore();
+    } = useProductsStore();
 
     const itemsPerPage = 12;
     const totalPages = Math.ceil(totalProducts / itemsPerPage);

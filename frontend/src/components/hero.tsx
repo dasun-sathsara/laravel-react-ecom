@@ -66,7 +66,7 @@ export function Hero() {
                             size="lg"
                             className="h-12 px-8 text-base transition-all hover:bg-primary hover:text-primary-foreground [animation-delay:800ms]"
                         >
-                            View Catalog
+                            View Categories
                         </Button>
                     </div>
                 </div>

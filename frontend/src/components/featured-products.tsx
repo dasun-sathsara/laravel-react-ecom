@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useToast } from '@/hooks/use-toast';
-import { useProductStore } from '@/store/product-store';
+import { useProductsStore } from '@/store/products-store';
 
 import { Product } from './product-card';
 import { ProductLoading } from './product-loading';
@@ -10,7 +10,7 @@ import { Container } from './ui/container';
 
 export function FeaturedProducts() {
     const { toast } = useToast();
-    const { featuredProducts, isLoading, error, fetchFeaturedProducts } = useProductStore();
+    const { featuredProducts, isLoading, error, fetchFeaturedProducts } = useProductsStore();
 
     useEffect(() => {
         fetchFeaturedProducts();
@@ -61,7 +61,7 @@ export function FeaturedProducts() {
                               ))
                             : featuredProducts.map((product) => (
                                   <CarouselItem key={product.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4">
-                                      <Product product={product} onAddToCart={handleAddToCart} />
+                                      <Product product={product} onAddToCart={handleAddToCart}/>
                                   </CarouselItem>
                               ))}
                     </CarouselContent>

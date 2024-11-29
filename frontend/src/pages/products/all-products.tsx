@@ -1,10 +1,10 @@
 import { ProductsGrid } from '@/components/paginated-products';
-import { useProductStore } from '@/store/product-store';
+import { useProductsStore } from '@/store/products-store';
 
 export function ShopPage() {
     const {
         pagination: { currentPage, totalProducts },
-    } = useProductStore();
+    } = useProductsStore();
 
     const itemsPerPage = 12;
     const startIndex = (currentPage - 1) * itemsPerPage;

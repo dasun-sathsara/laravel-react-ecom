@@ -3,7 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { ProductsGrid } from '@/components/paginated-products';
 import { Button } from '@/components/ui/button';
-import { useProductStore } from '@/store/product-store';
+import { useProductsStore } from '@/store/products-store';
 
 export default function CategoryPage() {
     const { id: categoryId } = useParams();
@@ -14,7 +14,7 @@ export default function CategoryPage() {
         categoryName,
         error,
         fetchProducts,
-    } = useProductStore();
+    } = useProductsStore();
 
     const itemsPerPage = 12;
     const startIndex = (currentPage - 1) * itemsPerPage;
