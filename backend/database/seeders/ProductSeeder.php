@@ -115,7 +115,7 @@ class ProductSeeder extends Seeder
                 'stock' => 20,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://connectthewatts.com/wp-content/uploads/sites/11/2023/06/Garmin-Fenix-7-Pro-Review.jpg?quality=82&strip=all',
+                    'https://www.garmin.com.sg/m/sg/g/products/fenix-7-pro-sapphire-carbongray-cf-lg.jpg',
                     'https://res.garmin.com/transform/image/upload/b_rgb:FFFFFF,c_pad,dpr_2.0,f_auto,h_400,q_auto,w_400/c_pad,h_400,w_400/v1/Product_Images/en/products/010-02777-10/v/cf-xl?pgw=1'
                 ])
             ],
@@ -167,7 +167,7 @@ class ProductSeeder extends Seeder
                 'stock' => 30,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://intl.nothing.tech/cdn/shop/files/phone-2-black_2d5e1e18-c3ed-41cd-9779-921276ce0502_750x.png?v=1688994876',
+                    'https://cdn.shopify.com/s/files/1/0376/5420/0459/files/BA_ALAK_200.1001_2381f096-6ff8-4260-aac1-9cfc3faf411d.png?v=1693208232',
                     'https://media.wired.com/photos/64af0487da92561daff93c58/1:1/w_1490,h_1490,c_limit/Nothing-Phone-2-Review-Featured-Gear.png'
                 ])
             ],
@@ -193,7 +193,7 @@ class ProductSeeder extends Seeder
                 'stock' => 12,
                 'featured' => false,
                 'image_urls' => json_encode([
-                    'https://www.pcworld.com/wp-content/uploads/2024/04/G14_edited1.jpg?quality=50&strip=all',
+                    'https://sg.store.asus.com/media/catalog/product/cache/b26d668859c3dee708061dfa01b5c45a/z/e/zephyrus_g16_white_02_l_rgb.png',
                     'https://assetsio.gnwcdn.com/asus-rog-zephyrus-g14-2022-(1).jpg?width=1200&height=1200&fit=crop&quality=100&format=png&enable=upscale&auto=webp'
                 ])
             ],
@@ -206,7 +206,7 @@ class ProductSeeder extends Seeder
                 'stock' => 18,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://idealz.lk/wp-content/uploads/2021/04/Apple-Airpods-Max-Green.jpg',
+                    'https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/HRJ22_AV1?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=1718750621642',
                     'https://www.apple.com/v/airpods-max/h/images/overview/product-stories/anc/anc_airpod_max_lifestyle__duzobvqwpz42_large.jpg'
                 ])
             ],
@@ -219,7 +219,7 @@ class ProductSeeder extends Seeder
                 'stock' => 8,
                 'featured' => true,
                 'image_urls' => json_encode([
-                    'https://m.media-amazon.com/images/I/711HTxM8v2L._AC_SL1500_.jpg',
+                    'https://lioncityco.com/cdn/shop/files/02_7394b2af-6f93-4884-9dd2-962f84c40b7d_800x.png?v=1715042210',
                     'https://assetsio.gnwcdn.com/samsung%20odyssey%20g9%20review.jpg?width=1200&height=1200&fit=bounds&quality=70&format=jpg&auto=webp'
                 ])
             ],
@@ -244,7 +244,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 1, // Smartphones category
                 'stock' => 18,
                 'featured' => true,
-                'image_urls' => json_encode([])
+                'image_urls' => json_encode(['https://cdn.dxomark.com/wp-content/uploads/medias/post-157488/Google-Pixel-8-Pro-Yoast-image-packshot-review.jpg'])
             ],
             [
                 'name' => 'ASUS ROG Strix G17 Gaming Laptop',
@@ -254,7 +254,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 2, // Laptops category
                 'stock' => 10,
                 'featured' => true,
-                'image_urls' => json_encode([])
+                'image_urls' => json_encode(['https://down-sg.img.susercontent.com/file/sg-11134207-7rdvd-lzxq7zvnxcx65b'])
             ],
             [
                 'name' => 'Apple Watch Series 9',
@@ -264,7 +264,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 4, // Wearables category
                 'stock' => 35,
                 'featured' => true,
-                'image_urls' => json_encode([])
+                'image_urls' => json_encode(['https://d3chjy2wsvtsxc.cloudfront.net/1.d/preview/2/7/2715f316_f676ad3c_MY_Apple_Watch_Series_9_GPS_41mm_Pink_Aluminum_Light_Pink_Sport_Band_PDP_Image_Position-1.jpg'])
             ],
             [
                 'name' => 'Sony WF-1000XM5',
@@ -274,7 +274,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 5, // Audio category
                 'stock' => 25,
                 'featured' => true,
-                'image_urls' => json_encode([])
+                'image_urls' => json_encode(['https://baybloorradio.com/image/cache/catalog/Sony/WF1000XM5/WF-1000XM5-B-Thumb-800x600.jpg'])
             ],
             [
                 'name' => 'Microsoft Surface Laptop Studio 2',
@@ -284,7 +284,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 2, // Laptops category
                 'stock' => 15,
                 'featured' => true,
-                'image_urls' => json_encode([])
+                'image_urls' => json_encode(['https://assistive.co.nz/wp-content/uploads/2023/11/Surface-Laptop-Studio-2-1-1.jpg'])
             ],
             [
                 'name' => 'Xiaomi Pad 6',
@@ -294,7 +294,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 3, // Tablets category
                 'stock' => 30,
                 'featured' => false,
-                'image_urls' => json_encode([])
+                'image_urls' => json_encode(['https://www.greentelcom.ph/wp-content/uploads/2023/10/gray-3.png'])
             ],
             [
                 'name' => 'Fitbit Sense 2',
@@ -304,7 +304,7 @@ class ProductSeeder extends Seeder
                 'category_id' => 4, // Wearables category
                 'stock' => 40,
                 'featured' => false,
-                'image_urls' => json_encode([])
+                'image_urls' => json_encode(['https://www.connect-it.com.sg/cdn/shop/files/sense2-black-device-front_85bef00b-7503-4f96-9a7c-e50ae9816121.png?v=1715927904&width=1445'])
             ],
             [
                 'name' => 'Dell Alienware 34 QD-OLED',
@@ -314,7 +314,9 @@ class ProductSeeder extends Seeder
                 'category_id' => 6, // Monitors category
                 'stock' => 12,
                 'featured' => true,
-                'image_urls' => json_encode([])
+                'image_urls' => json_encode([
+                    'https://m.media-amazon.com/images/I/71ufV5NQ44L.jpg'
+                ])
             ],
         ];
 
