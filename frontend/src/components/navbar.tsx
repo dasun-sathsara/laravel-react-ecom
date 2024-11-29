@@ -70,7 +70,7 @@ export function Navbar() {
                                 </Button>
 
                                 {isAdmin() ? (
-                                    <Button onClick={() => navigate('/admin/dashboard')}>Dashboard</Button>
+                                    <Button onClick={() => navigate('/dashboard')}>Dashboard</Button>
                                 ) : (
                                     <CheckoutButton stock={0} />
                                 )}

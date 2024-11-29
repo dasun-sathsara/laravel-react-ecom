@@ -68,7 +68,7 @@ function App() {
                             }
                         />
                         <Route
-                            path="/admin/dashboard"
+                            path="/dashboard"
                             element={
                                 <ProtectedRoute requireAdmin>
                                     <DashboardPage />
@@ -76,7 +76,7 @@ function App() {
                             }
                         />
                         <Route
-                            path="/admin/products/:id/edit"
+                            path="/products/:id/edit"
                             element={
                                 <ProtectedRoute requireAdmin>
                                     <EditProductPage />

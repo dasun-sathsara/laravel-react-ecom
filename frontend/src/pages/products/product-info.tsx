@@ -1,4 +1,4 @@
-import { ArrowLeft, Minus, Plus, ShoppingCart } from 'lucide-react';
+import { AlertCircle, ArrowLeft, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -12,7 +12,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useProductsStore } from '@/store/products-store';
 
 export function ProductPage() {
-    const { id:productId } = useParams();
+    const { id: productId } = useParams();
 
     const { selectedProduct, isLoading, error, fetchProduct } = useProductsStore();
 
@@ -34,11 +34,12 @@ export function ProductPage() {
 
     const handleAddToCart = () => {
         if (!selectedProduct) return;
-        
+
         toast({
             title: 'Added to cart',
-            description: `${quantity} ${quantity === 1 ? 'unit' : 'units'} of ${selectedProduct.name} ${quantity === 1 ? 'has' : 'have'
-                } been added to your cart.`,
+            description: `${quantity} ${quantity === 1 ? 'unit' : 'units'} of ${selectedProduct.name} ${
+                quantity === 1 ? 'has' : 'have'
+            } been added to your cart.`,
         });
     };
 
@@ -48,21 +49,6 @@ export function ProductPage() {
         handleAddToCart();
         navigate('/checkout');
     };
-
-    if (error) {
-        return (
-            <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-12">
-                <div className="text-center">
-                    <h2 className="text-xl font-semibold text-red-600">Error</h2>
-                    <p className="mt-2 text-gray-600">{error}</p>
-                    <Button onClick={() => navigate(-1)} className="mt-4">
-                        <ArrowLeft className="mr-2 h-4 w-4" />
-                        Go Back
-                    </Button>
-                </div>
-            </div>
-        );
-    }
 
     if (isLoading) {
         return (
@@ -92,15 +78,15 @@ export function ProductPage() {
 
     if (!selectedProduct) {
         return (
-            <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-12">
-                <div className="text-center">
-                    <h2 className="text-xl font-semibold">Product Not Found</h2>
-                    <p className="mt-2 text-gray-600">The requested product could not be found.</p>
-                    <Button onClick={() => navigate(-1)} className="mt-4">
-                        <ArrowLeft className="mr-2 h-4 w-4" />
-                        Go Back
-                    </Button>
+            <div className="flex flex-col items-center justify-center space-y-6 flex-1 min-h-[70vh]">
+                <div className="text-center space-y-4">
+                    <AlertCircle className="h-10 w-10  mx-auto" />
+                    <h2 className="text-xl font-semibold tracking-tight">Error Loading Product</h2>
+                    <p className="text-base text-muted-foreground max-w-md mx-auto">{error}</p>
                 </div>
+                <Button variant={'outline'} onClick={() => fetchProduct(productId!)}>
+                    Try Again
+                </Button>
             </div>
         );
     }
@@ -142,17 +128,26 @@ export function ProductPage() {
                     <div className="space-y-6">
                         <div>
                             <h1 className="text-3xl font-bold">{selectedProduct.name}</h1>
-                            <span className="text-sm text-muted-foreground capitalize">{selectedProduct.categoryName}</span>
+                            <span className="text-sm text-muted-foreground capitalize">
+                                {selectedProduct.categoryName}
+                            </span>
                         </div>
                         <div className="flex items-baseline gap-4">
                             {selectedProduct.discountedPrice ? (
                                 <>
-                                    <span className="text-3xl font-bold">${selectedProduct.discountedPrice.toFixed(2)}</span>
+                                    <span className="text-3xl font-bold">
+                                        ${selectedProduct.discountedPrice.toFixed(2)}
+                                    </span>
                                     <span className="text-xl text-muted-foreground line-through">
                                         ${selectedProduct.price.toFixed(2)}
                                     </span>
                                     <Badge variant="secondary" className="text-sm">
-                                        {Math.round(((selectedProduct.price - selectedProduct.discountedPrice) / selectedProduct.price) * 100)}% OFF
+                                        {Math.round(
+                                            ((selectedProduct.price - selectedProduct.discountedPrice) /
+                                                selectedProduct.price) *
+                                                100,
+                                        )}
+                                        % OFF
                                     </Badge>
                                 </>
                             ) : (
@@ -165,10 +160,12 @@ export function ProductPage() {
                     <div className="space-y-6">
                         {/* Stock Information */}
                         <div>
-                            <span className={`text-sm ${selectedProduct.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                            <span
+                                className={`text-sm ${selectedProduct.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
                                 {selectedProduct.stock > 0 ? (
                                     <>
-                                        In Stock ({selectedProduct.stock} {selectedProduct.stock === 1 ? 'item' : 'items'} left)
+                                        In Stock ({selectedProduct.stock}{' '}
+                                        {selectedProduct.stock === 1 ? 'item' : 'items'} left)
                                     </>
                                 ) : (
                                     'Out of Stock'

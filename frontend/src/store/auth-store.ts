@@ -19,7 +19,7 @@ interface AuthState {
     ) => Promise<boolean>;
     signin: (email: string, password: string) => Promise<boolean>;
     logout: () => Promise<boolean>;
-    isAdmin: () => Promise<boolean>;
+    isAdmin: () => boolean;
     fetchUser: () => Promise<void>;
 
     clearError: () => void;
@@ -132,7 +132,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
 
         clearError: () => set({ error: null }),
 
-        isAdmin: async () => {
+        isAdmin: () => {
             const user = get().user;
             return user?.role === 'admin';
         },

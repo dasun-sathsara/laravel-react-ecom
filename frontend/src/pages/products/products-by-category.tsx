@@ -1,4 +1,4 @@
-import { ArrowLeft } from 'lucide-react';
+import { AlertCircle, ArrowLeft } from 'lucide-react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { ProductsGrid } from '@/components/paginated-products';
@@ -32,7 +32,11 @@ export default function CategoryPage() {
 
             {error ? (
                 <div className="flex flex-col items-center justify-center space-y-6 flex-1 min-h-[70vh]">
-                    <p className="text-lg text-muted-foreground text-center">{error}</p>
+                    <div className="text-center space-y-4">
+                        <AlertCircle className="h-10 w-10  mx-auto" />
+                        <h2 className="text-2xl font-semibold tracking-tight">Error Loading Products</h2>
+                        <p className="text-base text-muted-foreground max-w-md mx-auto">{error}</p>
+                    </div>
                     <Button variant={'outline'} onClick={() => fetchProducts(currentPage, Number(categoryId))}>
                         Try Again
                     </Button>
