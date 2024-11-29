@@ -1,10 +1,12 @@
-import { ArrowRight, Search as SearchIcon, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 import { Button } from './ui/button';
 import { Container } from './ui/container';
-import { Input } from './ui/input';
 
 export function Hero() {
+    const navigate = useNavigate();
+
     return (
         <div className="relative min-h-[100vh] py-32 sm:py-40 flex items-center overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-b from-muted/50 via-muted/30 to-background" />
@@ -42,31 +44,14 @@ export function Hero() {
                         Dive into the world of tech gadgets and innovation. Get exclusive deals on the latest tech.
                     </p>
 
-                    <div className="relative mt-8 max-w-xl mx-auto animate-fade-up [animation-delay:400ms]">
-                        <div className="relative">
-                            <SearchIcon className="absolute left-3 top-1/2 h-6 w-6 -translate-y-1/2 text-primary" />
-                            <Input
-                                type="search"
-                                placeholder="Search for products..."
-                                className="w-full pl-10 h-12 bg-background/70 backdrop-blur-sm"
-                            />
-                        </div>
-                    </div>
-
-                    <div className="mt-12 flex items-center justify-center gap-x-6 animate-fade-up [animation-delay:800ms]">
+                    <div className="mt-12 flex items-center justify-center animate-fade-up [animation-delay:800ms]">
                         <Button
                             size="lg"
                             className="h-12 px-8 text-base transition-transform hover:scale-105 hover:shadow-lg"
+                            onClick={() => navigate('/shop')}
                         >
                             Shop Now
                             <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                        </Button>
-                        <Button
-                            variant="outline"
-                            size="lg"
-                            className="h-12 px-8 text-base transition-all hover:bg-primary hover:text-primary-foreground [animation-delay:800ms]"
-                        >
-                            View Categories
                         </Button>
                     </div>
                 </div>
