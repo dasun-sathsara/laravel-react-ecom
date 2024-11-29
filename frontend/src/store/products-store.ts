@@ -16,22 +16,31 @@ interface PaginationState {
 interface ProductsState {
     featuredProducts: ProductCard[];
     products: ProductCard[];
-
     selectedProduct: Product | null;
     isLoading: boolean;
-    error: string | null;
-    pagination: PaginationState;
+    fetchFeaturedProductsError: string | null;
+    fetchProductsError: string | null;
+    addProductError: string | null;
+    updateProductError: string | null;
+    deleteProductError: string | null;
     categoryName: string | null;
+    pagination: PaginationState;
+    fetchProductError: string | null;
 
     fetchFeaturedProducts: () => Promise<void>;
     fetchProducts: (page: number, categoryId?: number) => Promise<void>;
     addProduct: (product: Omit<ProductCard, 'id'>) => Promise<void>;
     updateProduct: (id: number, updatedProduct: Partial<ProductCard>) => Promise<void>;
     deleteProduct: (id: number) => Promise<void>;
-
     fetchProduct: (id: string) => Promise<void>;
 
-    clearError: () => void;
+    clearFetchFeaturedProductsError: () => void;
+    clearFetchProductsError: () => void;
+    clearAddProductError: () => void;
+    clearUpdateProductError: () => void;
+    clearDeleteProductError: () => void;
+    clearFetchProductError: () => void;
+
     reset: () => void;
 }
 
@@ -42,57 +51,64 @@ const initialPaginationState: PaginationState = {
     totalProducts: 0,
 };
 
-const handleError = (error: unknown, set: StoreApi<ProductsState>['setState'], defaultMessage: string) => {
+const handleError = (
+    error: unknown,
+    set: StoreApi<ProductsState>['setState'],
+    defaultMessage: string,
+    errorField: keyof ProductsState,
+) => {
     if (error instanceof AxiosError) {
         set({
-            error: error.response?.data?.message || defaultMessage,
+            [errorField]: error.response?.data?.message || defaultMessage,
             isLoading: false,
         });
     } else {
         set({
-            error: `An error occurred: ${defaultMessage}`,
+            [errorField]: `An error occurred: ${defaultMessage}`,
             isLoading: false,
         });
     }
 };
 
 export const useProductsStore = create<ProductsState>((set) => ({
+    // Initial state
     featuredProducts: [],
     products: [],
     selectedProduct: null,
     isLoading: false,
-    error: null,
+    fetchFeaturedProductsError: null,
+    fetchProductsError: null,
+    addProductError: null,
+    updateProductError: null,
+    deleteProductError: null,
     categoryName: null,
     pagination: initialPaginationState,
+    fetchProductError: null,
 
+    // Actions
     fetchFeaturedProducts: async () => {
         try {
-            set({ isLoading: true, error: null });
-
+            set({ isLoading: true, fetchFeaturedProductsError: null });
             const response = await api.get('/featured-products');
-
             set({
                 featuredProducts: response.data.data,
                 isLoading: false,
-                error: null,
+                fetchFeaturedProductsError: null,
             });
         } catch (error: unknown) {
-            handleError(error, set, 'Failed to fetch featured products');
+            handleError(error, set, 'Failed to fetch featured products', 'fetchFeaturedProductsError');
         }
     },
 
     fetchProducts: async (page, categoryId) => {
         try {
-            set({ isLoading: true, error: null });
-
+            set({ isLoading: true, fetchProductsError: null });
             const params = new URLSearchParams({
-                ...(categoryId != undefined && { categoryId: categoryId.toString() }),
+                ...(categoryId !== undefined && { categoryId: categoryId.toString() }),
                 page: page.toString(),
             });
-
             const response = await api.get(`/products?${params}`);
             const { data, meta } = response.data;
-
             set({
                 products: data,
                 pagination: {
@@ -102,11 +118,11 @@ export const useProductsStore = create<ProductsState>((set) => ({
                     totalProducts: meta.total,
                 },
                 isLoading: false,
-                error: null,
+                fetchProductsError: null,
                 categoryName: categoryId ? data[0].categoryName : null,
             });
         } catch (error: unknown) {
-            handleError(error, set, 'Failed to fetch products');
+            handleError(error, set, 'Failed to fetch products', 'fetchProductsError');
         }
     },
 
@@ -114,22 +130,20 @@ export const useProductsStore = create<ProductsState>((set) => ({
         const isAdmin = useAuthStore.getState().isAdmin();
 
         if (!isAdmin) {
-            set({ error: 'Unauthorized: Admin access required' });
+            set({ addProductError: 'Unauthorized: Admin access required' });
             return;
         }
 
         try {
-            set({ isLoading: true, error: null });
-
+            set({ isLoading: true, addProductError: null });
             const response = await api.post('/api/products', product);
-
             set((state) => ({
                 products: [...state.products, response.data],
                 isLoading: false,
-                error: null,
+                addProductError: null,
             }));
         } catch (error: unknown) {
-            handleError(error, set, 'Failed to add product');
+            handleError(error, set, 'Failed to add product', 'addProductError');
         }
     },
 
@@ -137,20 +151,20 @@ export const useProductsStore = create<ProductsState>((set) => ({
         const isAdmin = useAuthStore.getState().isAdmin();
 
         if (!isAdmin) {
-            set({ error: 'Unauthorized: Admin access required' });
+            set({ updateProductError: 'Unauthorized: Admin access required' });
             return;
         }
 
         try {
-            set({ isLoading: true, error: null });
+            set({ isLoading: true, updateProductError: null });
             const response = await api.put(`/api/products/${id}`, updatedProduct);
             set((state) => ({
                 products: state.products.map((prod) => (Number(prod.id) === id ? response.data : prod)),
                 isLoading: false,
-                error: null,
+                updateProductError: null,
             }));
         } catch (error: unknown) {
-            handleError(error, set, 'Failed to update product');
+            handleError(error, set, 'Failed to update product', 'updateProductError');
         }
     },
 
@@ -158,47 +172,59 @@ export const useProductsStore = create<ProductsState>((set) => ({
         const isAdmin = useAuthStore.getState().isAdmin();
 
         if (!isAdmin) {
-            set({ error: 'Unauthorized: Admin access required' });
+            set({ deleteProductError: 'Unauthorized: Admin access required' });
             return;
         }
 
         try {
-            set({ isLoading: true, error: null });
+            set({ isLoading: true, deleteProductError: null });
             await api.delete(`/api/products/${id}`);
             set((state) => ({
                 products: state.products.filter((prod) => Number(prod.id) !== id),
                 isLoading: false,
-                error: null,
+                deleteProductError: null,
             }));
         } catch (error: unknown) {
-            handleError(error, set, 'Failed to delete product');
+            handleError(error, set, 'Failed to delete product', 'deleteProductError');
         }
     },
 
     fetchProduct: async (id) => {
         try {
-            set({ isLoading: true, error: null });
+            set({ isLoading: true, fetchProductError: null });
             const response = await api.get(`/products/${id}`);
             set({
                 selectedProduct: response.data.data,
                 isLoading: false,
-                error: null,
+                fetchProductError: null,
             });
         } catch (error: unknown) {
-            handleError(error, set, 'Failed to fetch product');
+            handleError(error, set, 'Failed to fetch product', 'fetchProductError');
         }
     },
 
-    clearError: () => set({ error: null }),
+    // Clear functions for each error state
+    clearFetchFeaturedProductsError: () => set({ fetchFeaturedProductsError: null }),
+    clearFetchProductsError: () => set({ fetchProductsError: null }),
+    clearAddProductError: () => set({ addProductError: null }),
+    clearUpdateProductError: () => set({ updateProductError: null }),
+    clearDeleteProductError: () => set({ deleteProductError: null }),
+    clearFetchProductError: () => set({ fetchProductError: null }),
 
+    // Reset function to clear all states
     reset: () =>
         set({
             featuredProducts: [],
             products: [],
             selectedProduct: null,
             isLoading: false,
-            error: null,
+            fetchFeaturedProductsError: null,
+            fetchProductsError: null,
+            addProductError: null,
+            updateProductError: null,
+            deleteProductError: null,
             pagination: initialPaginationState,
             categoryName: null,
+            fetchProductError: null,
         }),
 }));

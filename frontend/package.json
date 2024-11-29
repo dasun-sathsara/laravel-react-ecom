@@ -8,7 +8,8 @@
         "build": "tsc -b && vite build",
         "lint": "eslint .",
         "lint:fix": "eslint . --fix",
-        "preview": "vite preview"
+        "preview": "vite preview",
+        "gentags": "ctags -R --exclude=src/components/ui --languages=typescript,javascript --typescript-kinds=+l --fields=+aimnzS --extras=+q --output-format=e-ctags src/"
     },
     "dependencies": {
         "@hookform/resolvers": "^3.9.1",

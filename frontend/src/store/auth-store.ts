@@ -9,20 +9,21 @@ interface AuthState {
     token: string | null;
     isAuthenticated: boolean;
     isLoading: boolean;
-    error: string | null;
-    
-    signup: (
-        name: string,
-        email: string,
-        password: string,
-        passwordConfirmation: string
-    ) => Promise<boolean>;
+    signupError: string | null;
+    signinError: string | null;
+    logoutError: string | null;
+    fetchUserError: string | null;
+
+    signup: (name: string, email: string, password: string, passwordConfirmation: string) => Promise<boolean>;
     signin: (email: string, password: string) => Promise<boolean>;
     logout: () => Promise<boolean>;
     isAdmin: () => boolean;
     fetchUser: () => Promise<void>;
 
-    clearError: () => void;
+    clearSignupError: () => void;
+    clearSigninError: () => void;
+    clearLogoutError: () => void;
+    clearFetchUserError: () => void;
 }
 
 const initialState = {
@@ -30,18 +31,26 @@ const initialState = {
     token: localStorage.getItem('token'),
     isAuthenticated: !!localStorage.getItem('token'),
     isLoading: false,
-    error: null,
+    signupError: null,
+    signinError: null,
+    logoutError: null,
+    fetchUserError: null,
 };
 
-const handleError = (error: unknown, set: StoreApi<AuthState>['setState'], defaultMessage: string) => {
+const handleError = (
+    error: unknown,
+    set: StoreApi<AuthState>['setState'],
+    defaultMessage: string,
+    errorField: keyof AuthState,
+) => {
     if (error instanceof AxiosError) {
         set({
-            error: error.response?.data?.message || defaultMessage,
+            [errorField]: error.response?.data?.message || defaultMessage,
             isLoading: false,
         });
     } else {
         set({
-            error: `An error occurred: ${defaultMessage}`,
+            [errorField]: `An error occurred: ${defaultMessage}`,
             isLoading: false,
         });
     }
@@ -55,10 +64,10 @@ export const useAuthStore = create<AuthState>((set, get) => {
             name: string,
             email: string,
             password: string,
-            passwordConfirmation: string
+            passwordConfirmation: string,
         ): Promise<boolean> => {
             try {
-                set({ isLoading: true, error: null });
+                set({ isLoading: true, signupError: null });
 
                 await api.post('/register', {
                     name,
@@ -69,19 +78,19 @@ export const useAuthStore = create<AuthState>((set, get) => {
 
                 set({
                     isLoading: false,
-                    error: null,
+                    signupError: null,
                 });
 
                 return true;
             } catch (error: unknown) {
-                handleError(error, set, 'An error occurred during signup');
+                handleError(error, set, 'An error occurred during signup', 'signupError');
                 return false;
             }
         },
 
         signin: async (email: string, password: string): Promise<boolean> => {
             try {
-                set({ isLoading: true, error: null });
+                set({ isLoading: true, signinError: null });
 
                 const response = await api.post('/login', {
                     email,
@@ -98,19 +107,19 @@ export const useAuthStore = create<AuthState>((set, get) => {
                     user,
                     isAuthenticated: true,
                     isLoading: false,
-                    error: null,
+                    signinError: null,
                 });
 
                 return true;
             } catch (error: unknown) {
-                handleError(error, set, 'An error occurred during login');
+                handleError(error, set, 'An error occurred during login', 'signinError');
                 return false;
             }
         },
 
         logout: async (): Promise<boolean> => {
             try {
-                set({ isLoading: true, error: null });
+                set({ isLoading: true, logoutError: null });
 
                 await api.post('/logout');
 
@@ -125,12 +134,15 @@ export const useAuthStore = create<AuthState>((set, get) => {
 
                 return true;
             } catch (error: unknown) {
-                handleError(error, set, 'Failed to logout');
+                handleError(error, set, 'Failed to logout', 'logoutError');
                 return false;
             }
         },
 
-        clearError: () => set({ error: null }),
+        clearSignupError: () => set({ signupError: null }),
+        clearSigninError: () => set({ signinError: null }),
+        clearLogoutError: () => set({ logoutError: null }),
+        clearFetchUserError: () => set({ fetchUserError: null }),
 
         isAdmin: () => {
             const user = get().user;
@@ -139,17 +151,17 @@ export const useAuthStore = create<AuthState>((set, get) => {
 
         fetchUser: async () => {
             try {
-                set({ isLoading: true, error: null });
+                set({ isLoading: true, fetchUserError: null });
                 api.defaults.headers.common['Authorization'] = `Bearer ${get().token}`;
                 const response = await api.get('http://127.0.0.1:8000/api/user');
                 set({
                     user: response.data,
                     isAuthenticated: true,
                     isLoading: false,
-                    error: null,
+                    fetchUserError: null,
                 });
             } catch (error: unknown) {
-                handleError(error, set, 'Failed to fetch user');
+                handleError(error, set, 'Failed to fetch user', 'fetchUserError');
             }
         },
     };

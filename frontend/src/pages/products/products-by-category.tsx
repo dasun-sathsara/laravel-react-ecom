@@ -12,7 +12,7 @@ export default function CategoryPage() {
     const {
         pagination: { currentPage, totalProducts },
         categoryName,
-        error,
+        fetchProductsError,
         fetchProducts,
     } = useProductsStore();
 
@@ -30,12 +30,12 @@ export default function CategoryPage() {
                 Back
             </Button>
 
-            {error ? (
+            {fetchProductsError ? (
                 <div className="flex flex-col items-center justify-center space-y-6 flex-1 min-h-[70vh]">
                     <div className="text-center space-y-4">
                         <AlertCircle className="h-10 w-10  mx-auto" />
                         <h2 className="text-2xl font-semibold tracking-tight">Error Loading Products</h2>
-                        <p className="text-base text-muted-foreground max-w-md mx-auto">{error}</p>
+                        <p className="text-base text-muted-foreground max-w-md mx-auto">{fetchProductsError}</p>
                     </div>
                     <Button variant={'outline'} onClick={() => fetchProducts(currentPage, Number(categoryId))}>
                         Try Again

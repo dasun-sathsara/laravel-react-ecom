@@ -18,7 +18,7 @@ const formSchema = z.object({
 });
 
 export function LoginPage() {
-    const { signin, isLoading, error, clearError, isAdmin } = useAuthStore();
+    const { signin, isLoading, signinError, clearSigninError, isAdmin } = useAuthStore();
 
     const { toast } = useToast();
 
@@ -37,18 +37,17 @@ export function LoginPage() {
     });
 
     useEffect(() => {
-        if (error) {
+        if (signinError) {
             form.setError('root', {
                 type: 'server',
-                message: error,
+                message: signinError,
             });
         }
-    }, [error, form]);
+    }, [signinError, form]);
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        // Clear any existing errors before attempting to sign in
         form.clearErrors();
-        clearError();
+        clearSigninError();
 
         const success = await signin(values.email, values.password);
 

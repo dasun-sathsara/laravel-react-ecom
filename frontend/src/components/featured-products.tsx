@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 
 import { useToast } from '@/hooks/use-toast';
 import { useProductsStore } from '@/store/products-store';
@@ -10,25 +10,30 @@ import { Container } from './ui/container';
 
 export function FeaturedProducts() {
     const { toast } = useToast();
-    const { featuredProducts, isLoading, error, fetchFeaturedProducts } = useProductsStore();
-    const prevErrorRef = useRef(error);
+    const {
+        featuredProducts,
+        isLoading,
+        fetchFeaturedProductsError,
+        fetchFeaturedProducts,
+        clearFetchFeaturedProductsError,
+    } = useProductsStore();
 
     useEffect(() => {
         fetchFeaturedProducts();
     }, [fetchFeaturedProducts]);
 
+    // Display toast notification for fetchFeaturedProductsError
     useEffect(() => {
-        if (!error || error === prevErrorRef.current) return;
-
-        toast({
-            title: 'Error',
-            description: error,
-            duration: 3000,
-            variant: 'destructive',
-        });
-
-        prevErrorRef.current = error;
-    }, [error, toast]);
+        if (fetchFeaturedProductsError) {
+            toast({
+                title: 'Error',
+                description: fetchFeaturedProductsError,
+                duration: 3000,
+                variant: 'destructive',
+            });
+            clearFetchFeaturedProductsError(); // Clear the error after displaying the toast
+        }
+    }, [fetchFeaturedProductsError, toast, clearFetchFeaturedProductsError]);
 
     const handleAddToCart = () => {
         toast({

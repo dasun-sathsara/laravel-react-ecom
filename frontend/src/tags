@@ -1,0 +1,208 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	backslash	/slash or backslash/
+!_TAG_OUTPUT_MODE	e-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	X:/Dev/Projects/ecommerce/frontend/src/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	/80ee839/
+Action	hooks/use-toast.ts	/^type Action =$/;"	kind:a	line:32
+ActionType	hooks/use-toast.ts	/^type ActionType = typeof actionTypes;$/;"	kind:a	line:30
+AuthState	store/auth-store.ts	/^interface AuthState {$/;"	kind:i	line:7
+AuthState.clearError	store/auth-store.ts	/^    clearError: () => void;$/;"	kind:p	line:25	interface:AuthState	access:public
+AuthState.error	store/auth-store.ts	/^    error: string | null;$/;"	kind:p	line:12	interface:AuthState	access:public
+AuthState.fetchUser	store/auth-store.ts	/^    fetchUser: () => Promise<void>;$/;"	kind:p	line:23	interface:AuthState	access:public
+AuthState.isAdmin	store/auth-store.ts	/^    isAdmin: () => boolean;$/;"	kind:p	line:22	interface:AuthState	access:public
+AuthState.isAuthenticated	store/auth-store.ts	/^    isAuthenticated: boolean;$/;"	kind:p	line:10	interface:AuthState	access:public
+AuthState.isLoading	store/auth-store.ts	/^    isLoading: boolean;$/;"	kind:p	line:11	interface:AuthState	access:public
+AuthState.logout	store/auth-store.ts	/^    logout: () => Promise<boolean>;$/;"	kind:p	line:21	interface:AuthState	access:public
+AuthState.signin	store/auth-store.ts	/^    signin: (email: string, password: string) => Promise<boolean>;$/;"	kind:p	line:20	interface:AuthState	access:public
+AuthState.signup	store/auth-store.ts	/^    signup: ($/;"	kind:p	line:14	interface:AuthState	access:public
+AuthState.token	store/auth-store.ts	/^    token: string | null;$/;"	kind:p	line:9	interface:AuthState	access:public
+AuthState.user	store/auth-store.ts	/^    user: User | null;$/;"	kind:p	line:8	interface:AuthState	access:public
+CategoriesState	store/categories-store.ts	/^interface CategoriesState {$/;"	kind:i	line:7
+CategoriesState.categories	store/categories-store.ts	/^    categories: Category[];$/;"	kind:p	line:8	interface:CategoriesState	access:public
+CategoriesState.clearError	store/categories-store.ts	/^    clearError: () => void;$/;"	kind:p	line:12	interface:CategoriesState	access:public
+CategoriesState.error	store/categories-store.ts	/^    error: string | null;$/;"	kind:p	line:10	interface:CategoriesState	access:public
+CategoriesState.fetchCategories	store/categories-store.ts	/^    fetchCategories: () => Promise<void>;$/;"	kind:p	line:11	interface:CategoriesState	access:public
+CategoriesState.isLoading	store/categories-store.ts	/^    isLoading: boolean;$/;"	kind:p	line:9	interface:CategoriesState	access:public
+Category	types/category.ts	/^interface Category {$/;"	kind:i	line:1
+Category.description	types/category.ts	/^    description: string;$/;"	kind:p	line:6	interface:Category	access:public
+Category.id	types/category.ts	/^    id: number;$/;"	kind:p	line:2	interface:Category	access:public
+Category.imageUrl	types/category.ts	/^    imageUrl: string;$/;"	kind:p	line:4	interface:Category	access:public
+Category.itemCount	types/category.ts	/^    itemCount: number;$/;"	kind:p	line:7	interface:Category	access:public
+Category.name	types/category.ts	/^    name: string;$/;"	kind:p	line:3	interface:Category	access:public
+Category.totalProducts	types/category.ts	/^    totalProducts: number;$/;"	kind:p	line:5	interface:Category	access:public
+ClassValue	lib/utils.ts	/^import { type ClassValue,clsx } from 'clsx';$/;"	kind:a	line:1
+PaginationState	store/products-store.ts	/^interface PaginationState {$/;"	kind:i	line:9
+PaginationState.currentPage	store/products-store.ts	/^    currentPage: number;$/;"	kind:p	line:10	interface:PaginationState	access:public
+PaginationState.hasNextPage	store/products-store.ts	/^    hasNextPage: boolean;$/;"	kind:p	line:11	interface:PaginationState	access:public
+PaginationState.hasPreviousPage	store/products-store.ts	/^    hasPreviousPage: boolean;$/;"	kind:p	line:12	interface:PaginationState	access:public
+PaginationState.totalProducts	store/products-store.ts	/^    totalProducts: number;$/;"	kind:p	line:13	interface:PaginationState	access:public
+Product	types/product.ts	/^interface Product {$/;"	kind:i	line:1
+Product.categoryId	types/product.ts	/^    categoryId: number;$/;"	kind:p	line:7	interface:Product	access:public
+Product.categoryName	types/product.ts	/^    categoryName: string;$/;"	kind:p	line:8	interface:Product	access:public
+Product.description	types/product.ts	/^    description: string;$/;"	kind:p	line:4	interface:Product	access:public
+Product.discountedPrice	types/product.ts	/^    discountedPrice?: number;$/;"	kind:p	line:6	interface:Product	access:public
+Product.featured	types/product.ts	/^    featured: boolean;$/;"	kind:p	line:11	interface:Product	access:public
+Product.id	types/product.ts	/^    id: string;$/;"	kind:p	line:2	interface:Product	access:public
+Product.imageUrls	types/product.ts	/^    imageUrls: string[];$/;"	kind:p	line:9	interface:Product	access:public
+Product.name	types/product.ts	/^    name: string;$/;"	kind:p	line:3	interface:Product	access:public
+Product.price	types/product.ts	/^    price: number;$/;"	kind:p	line:5	interface:Product	access:public
+Product.stock	types/product.ts	/^    stock: number;$/;"	kind:p	line:10	interface:Product	access:public
+ProductCard	types/product.ts	/^type ProductCard = Omit<Product, 'imageUrls'> & { imageUrl: string };$/;"	kind:a	line:14
+ProductsState	store/products-store.ts	/^interface ProductsState {$/;"	kind:i	line:16
+ProductsState.addProduct	store/products-store.ts	/^    addProduct: (product: Omit<ProductCard, 'id'>) => Promise<void>;$/;"	kind:p	line:28	interface:ProductsState	access:public
+ProductsState.categoryName	store/products-store.ts	/^    categoryName: string | null;$/;"	kind:p	line:24	interface:ProductsState	access:public
+ProductsState.clearError	store/products-store.ts	/^    clearError: () => void;$/;"	kind:p	line:34	interface:ProductsState	access:public
+ProductsState.deleteProduct	store/products-store.ts	/^    deleteProduct: (id: number) => Promise<void>;$/;"	kind:p	line:30	interface:ProductsState	access:public
+ProductsState.error	store/products-store.ts	/^    error: string | null;$/;"	kind:p	line:22	interface:ProductsState	access:public
+ProductsState.featuredProducts	store/products-store.ts	/^    featuredProducts: ProductCard[];$/;"	kind:p	line:17	interface:ProductsState	access:public
+ProductsState.fetchFeaturedProducts	store/products-store.ts	/^    fetchFeaturedProducts: () => Promise<void>;$/;"	kind:p	line:26	interface:ProductsState	access:public
+ProductsState.fetchProduct	store/products-store.ts	/^    fetchProduct: (id: string) => Promise<void>;$/;"	kind:p	line:32	interface:ProductsState	access:public
+ProductsState.fetchProducts	store/products-store.ts	/^    fetchProducts: (page: number, categoryId?: number) => Promise<void>;$/;"	kind:p	line:27	interface:ProductsState	access:public
+ProductsState.isLoading	store/products-store.ts	/^    isLoading: boolean;$/;"	kind:p	line:21	interface:ProductsState	access:public
+ProductsState.pagination	store/products-store.ts	/^    pagination: PaginationState;$/;"	kind:p	line:23	interface:ProductsState	access:public
+ProductsState.products	store/products-store.ts	/^    products: ProductCard[];$/;"	kind:p	line:18	interface:ProductsState	access:public
+ProductsState.reset	store/products-store.ts	/^    reset: () => void;$/;"	kind:p	line:35	interface:ProductsState	access:public
+ProductsState.selectedProduct	store/products-store.ts	/^    selectedProduct: Product | null;$/;"	kind:p	line:20	interface:ProductsState	access:public
+ProductsState.updateProduct	store/products-store.ts	/^    updateProduct: (id: number, updatedProduct: Partial<ProductCard>) => Promise<void>;$/;"	kind:p	line:29	interface:ProductsState	access:public
+State	hooks/use-toast.ts	/^interface State {$/;"	kind:i	line:50
+State.toasts	hooks/use-toast.ts	/^    toasts: ToasterToast[];$/;"	kind:p	line:51	interface:State	access:public
+TOAST_LIMIT	hooks/use-toast.ts	/^const TOAST_LIMIT = 1;$/;"	kind:C	line:5
+TOAST_REMOVE_DELAY	hooks/use-toast.ts	/^const TOAST_REMOVE_DELAY = 1000000;$/;"	kind:C	line:6
+Toast	hooks/use-toast.ts	/^type Toast = Omit<ToasterToast, 'id'>;$/;"	kind:a	line:136
+ToasterToast	hooks/use-toast.ts	/^type ToasterToast = ToastProps & {$/;"	kind:a	line:8
+User	types/user.ts	/^interface User {$/;"	kind:i	line:1
+User.email	types/user.ts	/^    email: string;$/;"	kind:p	line:4	interface:User	access:public
+User.id	types/user.ts	/^    id: number;$/;"	kind:p	line:2	interface:User	access:public
+User.name	types/user.ts	/^    name: string;$/;"	kind:p	line:3	interface:User	access:public
+User.role	types/user.ts	/^    role: 'admin' | 'user';$/;"	kind:p	line:5	interface:User	access:public
+actionTypes	hooks/use-toast.ts	/^const actionTypes = {$/;"	kind:C	line:16
+addProduct	store/products-store.ts	/^    addProduct: (product: Omit<ProductCard, 'id'>) => Promise<void>;$/;"	kind:p	line:28	interface:ProductsState	access:public
+addToRemoveQueue	hooks/use-toast.ts	/^const addToRemoveQueue = (toastId: string) => {$/;"	kind:C	line:56
+api	lib/api.ts	/^const api: AxiosInstance = axios.create({$/;"	kind:C	line:3
+categories	store/categories-store.ts	/^    categories: Category[];$/;"	kind:p	line:8	interface:CategoriesState	access:public
+categoryId	types/product.ts	/^    categoryId: number;$/;"	kind:p	line:7	interface:Product	access:public
+categoryName	store/products-store.ts	/^    categoryName: string | null;$/;"	kind:p	line:24	interface:ProductsState	access:public
+categoryName	types/product.ts	/^    categoryName: string;$/;"	kind:p	line:8	interface:Product	access:public
+clearError	store/auth-store.ts	/^    clearError: () => void;$/;"	kind:p	line:25	interface:AuthState	access:public
+clearError	store/categories-store.ts	/^    clearError: () => void;$/;"	kind:p	line:12	interface:CategoriesState	access:public
+clearError	store/products-store.ts	/^    clearError: () => void;$/;"	kind:p	line:34	interface:ProductsState	access:public
+cn	lib/utils.ts	/^export function cn(...inputs: ClassValue[]) {$/;"	kind:f	line:4
+count	hooks/use-toast.ts	/^let count = 0;$/;"	kind:v	line:23
+currentPage	store/products-store.ts	/^    currentPage: number;$/;"	kind:p	line:10	interface:PaginationState	access:public
+data	store/products-store.ts	/^            const { data, meta } = response.data;$/;"	kind:C	line:94
+deleteProduct	store/products-store.ts	/^    deleteProduct: (id: number) => Promise<void>;$/;"	kind:p	line:30	interface:ProductsState	access:public
+description	types/category.ts	/^    description: string;$/;"	kind:p	line:6	interface:Category	access:public
+description	types/product.ts	/^    description: string;$/;"	kind:p	line:4	interface:Product	access:public
+discountedPrice	types/product.ts	/^    discountedPrice?: number;$/;"	kind:p	line:6	interface:Product	access:public
+dismiss	hooks/use-toast.ts	/^    const dismiss = () => dispatch({ type: 'DISMISS_TOAST', toastId: id });$/;"	kind:C	line:146	function:toast
+dispatch	hooks/use-toast.ts	/^function dispatch(action: Action) {$/;"	kind:f	line:129
+email	types/user.ts	/^    email: string;$/;"	kind:p	line:4	interface:User	access:public
+error	store/auth-store.ts	/^    error: string | null;$/;"	kind:p	line:12	interface:AuthState	access:public
+error	store/categories-store.ts	/^    error: null,$/;"	kind:C	line:18
+error	store/categories-store.ts	/^    error: string | null;$/;"	kind:p	line:10	interface:CategoriesState	access:public
+error	store/products-store.ts	/^    error: string | null;$/;"	kind:p	line:22	interface:ProductsState	access:public
+featured	types/product.ts	/^    featured: boolean;$/;"	kind:p	line:11	interface:Product	access:public
+featuredProducts	store/products-store.ts	/^    featuredProducts: ProductCard[];$/;"	kind:p	line:17	interface:ProductsState	access:public
+fetchCategories	store/categories-store.ts	/^    fetchCategories: () => Promise<void>;$/;"	kind:p	line:11	interface:CategoriesState	access:public
+fetchFeaturedProducts	store/products-store.ts	/^    fetchFeaturedProducts: () => Promise<void>;$/;"	kind:p	line:26	interface:ProductsState	access:public
+fetchProduct	store/products-store.ts	/^    fetchProduct: (id: string) => Promise<void>;$/;"	kind:p	line:32	interface:ProductsState	access:public
+fetchProducts	store/products-store.ts	/^    fetchProducts: (page: number, categoryId?: number) => Promise<void>;$/;"	kind:p	line:27	interface:ProductsState	access:public
+fetchUser	store/auth-store.ts	/^    fetchUser: () => Promise<void>;$/;"	kind:p	line:23	interface:AuthState	access:public
+genId	hooks/use-toast.ts	/^function genId() {$/;"	kind:f	line:25
+handleError	store/auth-store.ts	/^const handleError = (error: unknown, set: StoreApi<AuthState>['setState'], defaultMessage: strin/;"	kind:C	line:36
+handleError	store/categories-store.ts	/^const handleError = (error: unknown, set: StoreApi<CategoriesState>['setState'], defaultMessage:/;"	kind:C	line:21
+handleError	store/products-store.ts	/^const handleError = (error: unknown, set: StoreApi<ProductsState>['setState'], defaultMessage: s/;"	kind:C	line:45
+hasNextPage	store/products-store.ts	/^    hasNextPage: boolean;$/;"	kind:p	line:11	interface:PaginationState	access:public
+hasPreviousPage	store/products-store.ts	/^    hasPreviousPage: boolean;$/;"	kind:p	line:12	interface:PaginationState	access:public
+hasPreviousPage	store/products-store.ts	/^    hasPreviousPage: false,$/;"	kind:C	line:41
+id	hooks/use-toast.ts	/^    const id = genId();$/;"	kind:C	line:139	function:toast
+id	lib/dummy-data.ts	/^        id: '10',$/;"	kind:C	line:166
+id	lib/dummy-data.ts	/^        id: '11',$/;"	kind:C	line:178
+id	lib/dummy-data.ts	/^        id: '12',$/;"	kind:C	line:190
+id	lib/dummy-data.ts	/^        id: '13',$/;"	kind:C	line:204
+id	lib/dummy-data.ts	/^        id: '14',$/;"	kind:C	line:216
+id	lib/dummy-data.ts	/^        id: '15',$/;"	kind:C	line:228
+id	lib/dummy-data.ts	/^        id: '16',$/;"	kind:C	line:242
+id	lib/dummy-data.ts	/^        id: '17',$/;"	kind:C	line:254
+id	lib/dummy-data.ts	/^        id: '18',$/;"	kind:C	line:266
+id	lib/dummy-data.ts	/^        id: '19',$/;"	kind:C	line:280
+id	lib/dummy-data.ts	/^        id: '2',$/;"	kind:C	line:65
+id	lib/dummy-data.ts	/^        id: '20',$/;"	kind:C	line:292
+id	lib/dummy-data.ts	/^        id: '3',$/;"	kind:C	line:78
+id	lib/dummy-data.ts	/^        id: '4',$/;"	kind:C	line:90
+id	lib/dummy-data.ts	/^        id: '5',$/;"	kind:C	line:102
+id	lib/dummy-data.ts	/^        id: '6',$/;"	kind:C	line:116
+id	lib/dummy-data.ts	/^        id: '7',$/;"	kind:C	line:128
+id	lib/dummy-data.ts	/^        id: '8',$/;"	kind:C	line:140
+id	lib/dummy-data.ts	/^        id: '9',$/;"	kind:C	line:152
+id	types/category.ts	/^    id: number;$/;"	kind:p	line:2	interface:Category	access:public
+id	types/product.ts	/^    id: string;$/;"	kind:p	line:2	interface:Product	access:public
+id	types/user.ts	/^    id: number;$/;"	kind:p	line:2	interface:User	access:public
+imageUrl	types/category.ts	/^    imageUrl: string;$/;"	kind:p	line:4	interface:Category	access:public
+imageUrls	types/product.ts	/^    imageUrls: string[];$/;"	kind:p	line:9	interface:Product	access:public
+index	hooks/use-toast.ts	/^            const index = listeners.indexOf(setState);$/;"	kind:C	line:173	function:useToast
+initialPaginationState	store/products-store.ts	/^const initialPaginationState: PaginationState = {$/;"	kind:C	line:38
+initialState	store/auth-store.ts	/^const initialState = {$/;"	kind:C	line:28
+initialState	store/categories-store.ts	/^const initialState = {$/;"	kind:C	line:15
+isAdmin	store/auth-store.ts	/^    isAdmin: () => boolean;$/;"	kind:p	line:22	interface:AuthState	access:public
+isAdmin	store/products-store.ts	/^        const isAdmin = useAuthStore.getState().isAdmin();$/;"	kind:C	line:114
+isAdmin	store/products-store.ts	/^        const isAdmin = useAuthStore.getState().isAdmin();$/;"	kind:C	line:137
+isAdmin	store/products-store.ts	/^        const isAdmin = useAuthStore.getState().isAdmin();$/;"	kind:C	line:158
+isAuthenticated	store/auth-store.ts	/^    isAuthenticated: boolean;$/;"	kind:p	line:10	interface:AuthState	access:public
+isLoading	store/auth-store.ts	/^    isLoading: boolean;$/;"	kind:p	line:11	interface:AuthState	access:public
+isLoading	store/categories-store.ts	/^    isLoading: boolean;$/;"	kind:p	line:9	interface:CategoriesState	access:public
+isLoading	store/products-store.ts	/^    isLoading: boolean;$/;"	kind:p	line:21	interface:ProductsState	access:public
+itemCount	types/category.ts	/^    itemCount: number;$/;"	kind:p	line:7	interface:Category	access:public
+listeners	hooks/use-toast.ts	/^const listeners: Array<(state: State) => void> = [];$/;"	kind:C	line:125
+logout	store/auth-store.ts	/^    logout: () => Promise<boolean>;$/;"	kind:p	line:21	interface:AuthState	access:public
+memoryState	hooks/use-toast.ts	/^let memoryState: State = { toasts: [] };$/;"	kind:v	line:127
+meta	store/products-store.ts	/^            const { data, meta } = response.data;$/;"	kind:C	line:94
+mockCategories	lib/dummy-data.ts	/^const mockCategories: Category[] = [$/;"	kind:C	line:4
+mockProducts	lib/dummy-data.ts	/^const mockProducts: Product[] = [$/;"	kind:C	line:49
+name	types/category.ts	/^    name: string;$/;"	kind:p	line:3	interface:Category	access:public
+name	types/product.ts	/^    name: string;$/;"	kind:p	line:3	interface:Product	access:public
+name	types/user.ts	/^    name: string;$/;"	kind:p	line:3	interface:User	access:public
+pagination	store/products-store.ts	/^    pagination: PaginationState;$/;"	kind:p	line:23	interface:ProductsState	access:public
+price	types/product.ts	/^    price: number;$/;"	kind:p	line:5	interface:Product	access:public
+products	store/products-store.ts	/^    products: ProductCard[];$/;"	kind:p	line:18	interface:ProductsState	access:public
+reducer	hooks/use-toast.ts	/^export const reducer = (state: State, action: Action): State => {$/;"	kind:C	line:72
+reset	store/products-store.ts	/^    reset: () => void;$/;"	kind:p	line:35	interface:ProductsState	access:public
+response	store/products-store.ts	/^            const response = await api.get(`\/products?${params}`);$/;"	kind:C	line:93
+response	store/products-store.ts	/^            const response = await api.get(`\/products\/${id}`);$/;"	kind:C	line:181
+response	store/products-store.ts	/^            const response = await api.post('\/api\/products', product);$/;"	kind:C	line:124
+response	store/products-store.ts	/^            const response = await api.put(`\/api\/products\/${id}`, updatedProduct);$/;"	kind:C	line:146
+role	types/user.ts	/^    role: 'admin' | 'user';$/;"	kind:p	line:5	interface:User	access:public
+selectedProduct	store/products-store.ts	/^    selectedProduct: Product | null;$/;"	kind:p	line:20	interface:ProductsState	access:public
+setState	hooks/use-toast.ts	/^    const [state, setState] = React.useState<State>(memoryState);$/;"	kind:C	line:168	function:useToast
+signin	store/auth-store.ts	/^    signin: (email: string, password: string) => Promise<boolean>;$/;"	kind:p	line:20	interface:AuthState	access:public
+signup	store/auth-store.ts	/^    signup: ($/;"	kind:p	line:14	interface:AuthState	access:public
+state	hooks/use-toast.ts	/^    const [state, setState] = React.useState<State>(memoryState);$/;"	kind:C	line:168	function:useToast
+stock	types/product.ts	/^    stock: number;$/;"	kind:p	line:10	interface:Product	access:public
+toast	hooks/use-toast.ts	/^function toast({ ...props }: Toast) {$/;"	kind:f	line:138
+toast.dismiss	hooks/use-toast.ts	/^    const dismiss = () => dispatch({ type: 'DISMISS_TOAST', toastId: id });$/;"	kind:C	line:146	function:toast
+toast.id	hooks/use-toast.ts	/^    const id = genId();$/;"	kind:C	line:139	function:toast
+toast.update	hooks/use-toast.ts	/^    const update = (props: ToasterToast) =>$/;"	kind:C	line:141	function:toast
+toastTimeouts	hooks/use-toast.ts	/^const toastTimeouts = new Map<string, ReturnType<typeof setTimeout>>();$/;"	kind:C	line:54
+toasts	hooks/use-toast.ts	/^    toasts: ToasterToast[];$/;"	kind:p	line:51	interface:State	access:public
+token	store/auth-store.ts	/^    token: localStorage.getItem('token'),$/;"	kind:C	line:30
+token	store/auth-store.ts	/^    token: string | null;$/;"	kind:p	line:9	interface:AuthState	access:public
+totalProducts	store/products-store.ts	/^    totalProducts: 0,$/;"	kind:C	line:42
+totalProducts	store/products-store.ts	/^    totalProducts: number;$/;"	kind:p	line:13	interface:PaginationState	access:public
+totalProducts	types/category.ts	/^    totalProducts: number;$/;"	kind:p	line:5	interface:Category	access:public
+update	hooks/use-toast.ts	/^    const update = (props: ToasterToast) =>$/;"	kind:C	line:141	function:toast
+updateProduct	store/products-store.ts	/^    updateProduct: (id: number, updatedProduct: Partial<ProductCard>) => Promise<void>;$/;"	kind:p	line:29	interface:ProductsState	access:public
+useAuthStore	store/auth-store.ts	/^export const useAuthStore = create<AuthState>((set, get) => {$/;"	kind:C	line:50
+useCategoriesStore	store/categories-store.ts	/^export const useCategoriesStore = create<CategoriesState>((set) => ({$/;"	kind:C	line:35
+useProductsStore	store/products-store.ts	/^export const useProductsStore = create<ProductsState>((set) => ({$/;"	kind:C	line:59
+useToast	hooks/use-toast.ts	/^function useToast() {$/;"	kind:f	line:167
+useToast.index	hooks/use-toast.ts	/^            const index = listeners.indexOf(setState);$/;"	kind:C	line:173	function:useToast
+useToast.setState	hooks/use-toast.ts	/^    const [state, setState] = React.useState<State>(memoryState);$/;"	kind:C	line:168	function:useToast
+useToast.state	hooks/use-toast.ts	/^    const [state, setState] = React.useState<State>(memoryState);$/;"	kind:C	line:168	function:useToast
+user	store/auth-store.ts	/^    user: User | null;$/;"	kind:p	line:8	interface:AuthState	access:public
+void	hooks/use-toast.ts	/^const listeners: Array<(state: State) => void> = [];$/;"	kind:C	line:125

@@ -25,7 +25,7 @@ const formSchema = z
 
 export function SignUpPage() {
     const navigate = useNavigate();
-    const { signup, isLoading, error, clearError } = useAuthStore();
+    const { signup, isLoading, signupError, clearSignupError } = useAuthStore();
     const { toast } = useToast();
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -39,18 +39,17 @@ export function SignUpPage() {
     });
 
     useEffect(() => {
-        if (error) {
+        if (signupError) {
             form.setError('root', {
                 type: 'server',
-                message: error,
+                message: signupError,
             });
         }
-    }, [error, form]);
+    }, [signupError, form]);
 
     async function onSubmit(values: z.infer<typeof formSchema>) {
-        // Clear any existing errors
         form.clearErrors();
-        clearError();
+        clearSignupError();
 
         const success = await signup(values.name, values.email, values.password, values.confirmPassword);
         if (success) {

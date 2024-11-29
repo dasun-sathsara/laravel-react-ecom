@@ -14,7 +14,7 @@ import { useProductsStore } from '@/store/products-store';
 export function ProductPage() {
     const { id: productId } = useParams();
 
-    const { selectedProduct, isLoading, error, fetchProduct } = useProductsStore();
+    const { selectedProduct, isLoading, fetchProductError, fetchProduct } = useProductsStore();
 
     const { toast } = useToast();
     const navigate = useNavigate();
@@ -82,7 +82,7 @@ export function ProductPage() {
                 <div className="text-center space-y-4">
                     <AlertCircle className="h-10 w-10  mx-auto" />
                     <h2 className="text-xl font-semibold tracking-tight">Error Loading Product</h2>
-                    <p className="text-base text-muted-foreground max-w-md mx-auto">{error}</p>
+                    <p className="text-base text-muted-foreground max-w-md mx-auto">{fetchProductError}</p>
                 </div>
                 <Button variant={'outline'} onClick={() => fetchProduct(productId!)}>
                     Try Again

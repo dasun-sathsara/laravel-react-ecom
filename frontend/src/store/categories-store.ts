@@ -12,12 +12,6 @@ interface CategoriesState {
     clearError: () => void;
 }
 
-const initialState = {
-    categories: [],
-    isLoading: false,
-    error: null,
-};
-
 const handleError = (error: unknown, set: StoreApi<CategoriesState>['setState'], defaultMessage: string) => {
     if (error instanceof AxiosError) {
         set({
@@ -33,7 +27,9 @@ const handleError = (error: unknown, set: StoreApi<CategoriesState>['setState'],
 };
 
 export const useCategoriesStore = create<CategoriesState>((set) => ({
-    ...initialState,
+    categories: [],
+    isLoading: false,
+    error: null,
 
     fetchCategories: async () => {
         try {
