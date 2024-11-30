@@ -32,12 +32,12 @@ class OrderController extends Controller
                     $order->items()->create([
                         'product_id' => $item['id'],
                         'quantity' => $item['quantity'],
-                        'price' => $item['price'],
-                        'total' => $item['price'] * $item['quantity']
+                        'price' => $product->price,
+                        'total' => $product->price * $item['quantity']
                     ]);
                 }
 
-                return new OrderResource($order->load('items.product'));
+                return new OrderResource($order->load('items'));
             });
         } catch (\Exception $e) {
             return response()->json([

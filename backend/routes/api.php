@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Middleware\EnsureUserIsAdmin;
 use App\Http\Controllers\OrderController;
 use App\Http\Resources\UserResource;
+use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -40,10 +41,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders', [OrderController::class, 'index']);
     Route::post('/orders', [OrderController::class, 'store']);
 
+    // Cart Routes
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart/items', [CartController::class, 'store']);
+    Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->missing(fn() => response()
+        ->json(['message' => 'Item not found'], 404));
+
     // Admin Routes
     Route::middleware(EnsureUserIsAdmin::class)->prefix('products')->group(function () {
         Route::post('/', [ProductController::class, 'store']);
-        Route::put('/{product}', [ProductController::class, 'update']);
-        Route::delete('/{product}', [ProductController::class, 'destroy']);
+
+        Route::put('/{product}', [ProductController::class, 'update'])->missing(fn() => response()
+            ->json(['message' => 'Product not found'], 404));
+
+        Route::delete('/{product}', [ProductController::class, 'destroy'])->missing(fn() => response()
+            ->json(['message' => 'Product not found'], 404));
     });
 });

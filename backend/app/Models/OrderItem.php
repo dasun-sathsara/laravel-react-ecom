@@ -12,8 +12,6 @@ class OrderItem extends Model
 {
     use HasFactory;
 
-    public $timestamps = true;
-
     protected $fillable = [
         'order_id',
         'product_id',
