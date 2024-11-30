@@ -3,23 +3,14 @@ I am building an API for an ecommerce app. I have implemented authentication and
 
 TODO:
 
-Update the `DatabaseSeeder.php` file to add 15 products. Should be of varying categories. Include at least 2 images for each product. Some should be featured. Some should have discounts.
-
-Sample Product:
-`
+Implement the `OrderResource`. A JSON response should look like this:
 {
-    "name": "MacBook Pro 16-inch",
-    "description": "The MacBook Pro 16-inch with Apple M1 Pro chip, 16GB RAM, and a 1TB SSD, designed for professional-grade performance and stunning visuals.",
-    "price": 2499.00,
-    "discountedPrice": 2299.99,
-    "categoryId": 3,
-    "stock": 15,
-    "featured": true,
-    "imageUrls": [
-        "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16-space-m1-2021?wid=2000&hei=2000&fmt=jpeg&qlt=90&.v=1643239951000",
-        "https://sm.pcmag.com/t/pcmag_me/review/a/apple-macb/apple-macbook-pro-16-inch-2023-m3-max_cah1.1920.jpg"
-    ]
-}
-`
-
-Include the sample product as well.
+    id: '1',
+    date: '2021-01-01',
+    items: [
+        { id: '1', name: 'Product 1', quantity: 2, price: 29.99 },
+        { id: '2', name: 'Product 2', quantity: 1, price: 49.99 },
+    ],
+    totalPrice: 109.97,
+    status: 'success'|'pending'|'failed',
+},

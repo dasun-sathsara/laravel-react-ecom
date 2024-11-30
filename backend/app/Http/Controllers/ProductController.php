@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateProductRequest;
 use Illuminate\Http\Request;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\ProductCollection;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -28,31 +29,40 @@ class ProductController extends Controller
 
     public function store(StoreProductRequest $request)
     {
-        $validated = $request->validated();
+        try {
+            return DB::transaction(function () use ($request) {
+                $validated = $request->validated();
 
-        // Create the product
-        $product = Product::create([
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-            'price' => $validated['price'],
-            'discounted_price' => $validated['discountedPrice'] ?? null,
-            'category_id' => $validated['categoryId'],
-            'stock' => $validated['stock'],
-            'featured' => $validated['featured'] ?? false,
-        ]);
+                // Create the product
+                $product = Product::create([
+                    'name' => $validated['name'],
+                    'description' => $validated['description'],
+                    'price' => $validated['price'],
+                    'discounted_price' => $validated['discountedPrice'] ?? null,
+                    'category_id' => $validated['categoryId'],
+                    'stock' => $validated['stock'],
+                    'featured' => $validated['featured'] ?? false,
+                ]);
 
-        // Store product images
-        foreach ($validated['imageUrls'] as $image_url) {
-            $product->images()->create([
-                'url' => $image_url,
-            ]);
+                // Store product images
+                foreach ($validated['imageUrls'] as $image_url) {
+                    $product->images()->create([
+                        'url' => $image_url,
+                    ]);
+                }
+
+                // Load relationships and return response
+                return response()->json([
+                    'message' => 'Product created successfully',
+                    'data' => $product->load(['category', 'images'])
+                ], 201);
+            });
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Error creating product',
+                'error' => $e->getMessage()
+            ], 500);
         }
-
-        // Load relationships and return response
-        return response()->json([
-            'message' => 'Product created successfully',
-            'data' => $product->load(['category', 'images'])
-        ], 201);
     }
 
     public function show(Product $product)
