@@ -19,7 +19,6 @@ import EditProductPage from '@/pages/products/edit-product';
 import { ProductPage } from '@/pages/products/product-info';
 import CategoryPage from '@/pages/products/products-by-category';
 
-
 function App() {
     return (
         <Router>

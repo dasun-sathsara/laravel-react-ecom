@@ -11,7 +11,6 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from '@/components/ui/pagination';
-import { useToast } from '@/hooks/use-toast';
 import { useProductsStore } from '@/store/products-store';
 
 interface ProductsGridProps {
@@ -19,8 +18,6 @@ interface ProductsGridProps {
 }
 
 export function ProductsGrid({ categoryId }: ProductsGridProps) {
-    const { toast } = useToast();
-
     const {
         products,
         isLoading,
@@ -34,13 +31,6 @@ export function ProductsGrid({ categoryId }: ProductsGridProps) {
     useEffect(() => {
         fetchProducts(currentPage, categoryId);
     }, [currentPage, fetchProducts, categoryId]);
-
-    const handleAddToCart = () => {
-        toast({
-            title: 'Added to cart',
-            description: 'The product has been added to your cart.',
-        });
-    };
 
     const handlePageChange = (page: number) => {
         if (page < currentPage && !hasPreviousPage) {
@@ -116,9 +106,7 @@ export function ProductsGrid({ categoryId }: ProductsGridProps) {
                     ? Array.from({ length: itemsPerPage }).map((_, index) => (
                           <ProductLoading key={`skeleton-${index}`} />
                       ))
-                    : products.map((product) => (
-                          <Product key={product.id} product={product} onAddToCart={handleAddToCart} />
-                      ))}
+                    : products.map((product) => <Product key={product.id} product={product} />)}
             </div>
             {!isLoading && totalPages > 1 && (
                 <Pagination className="justify-center">

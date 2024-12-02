@@ -9,20 +9,33 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
+import { useCartStore } from '@/store/cart-store';
 import { useProductsStore } from '@/store/products-store';
 
 export function ProductPage() {
     const { id: productId } = useParams();
 
     const { selectedProduct, isLoading, fetchProductError, fetchProduct } = useProductsStore();
+    const { addItem, addItemError } = useCartStore();
 
     const { toast } = useToast();
     const navigate = useNavigate();
     const [quantity, setQuantity] = useState(1);
+    const [isAddingToCart, setIsAddingToCart] = useState(false);
 
     useEffect(() => {
         fetchProduct(productId!);
     }, [productId, fetchProduct]);
+
+    useEffect(() => {
+        if (addItemError) {
+            toast({
+                title: 'Error',
+                description: addItemError,
+                variant: 'destructive',
+            });
+        }
+    }, [addItemError, toast]);
 
     const updateQuantity = (newQuantity: number) => {
         if (!selectedProduct) return;
@@ -32,22 +45,37 @@ export function ProductPage() {
         }
     };
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
         if (!selectedProduct) return;
 
-        toast({
-            title: 'Added to cart',
-            description: `${quantity} ${quantity === 1 ? 'unit' : 'units'} of ${selectedProduct.name} ${
-                quantity === 1 ? 'has' : 'have'
-            } been added to your cart.`,
-        });
+        setIsAddingToCart(true);
+        try {
+            await addItem(selectedProduct, quantity);
+            if (!addItemError) {
+                toast({
+                    title: 'Added to cart',
+                    description: `${quantity} ${quantity === 1 ? 'unit' : 'units'} of ${selectedProduct.name} ${
+                        quantity === 1 ? 'has' : 'have'
+                    } been added to your cart.`,
+                });
+            }
+        } finally {
+            setIsAddingToCart(false);
+        }
     };
 
-    const handleBuyNow = () => {
+    const handleBuyNow = async () => {
         if (!selectedProduct) return;
 
-        handleAddToCart();
-        navigate('/checkout');
+        setIsAddingToCart(true);
+        try {
+            await addItem(selectedProduct, quantity);
+            if (!addItemError) {
+                navigate('/checkout');
+            }
+        } finally {
+            setIsAddingToCart(false);
+        }
     };
 
     if (isLoading) {
@@ -206,15 +234,15 @@ export function ProductPage() {
                                     className="flex-1"
                                     variant="outline"
                                     onClick={handleAddToCart}
-                                    disabled={selectedProduct.stock === 0}>
+                                    disabled={selectedProduct.stock === 0 || isAddingToCart}>
                                     <ShoppingCart className="mr-2 h-4 w-4" />
-                                    Add to Cart
+                                    {isAddingToCart ? 'Adding...' : 'Add to Cart'}
                                 </Button>
                                 <Button
                                     className="flex-1"
                                     onClick={handleBuyNow}
-                                    disabled={selectedProduct.stock === 0}>
-                                    Buy Now
+                                    disabled={selectedProduct.stock === 0 || isAddingToCart}>
+                                    {isAddingToCart ? 'Adding...' : 'Buy Now'}
                                 </Button>
                             </div>
                         </div>

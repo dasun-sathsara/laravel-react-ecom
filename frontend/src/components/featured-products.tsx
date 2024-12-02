@@ -31,17 +31,8 @@ export function FeaturedProducts() {
                 duration: 3000,
                 variant: 'destructive',
             });
-            clearFetchFeaturedProductsError(); // Clear the error after displaying the toast
         }
     }, [fetchFeaturedProductsError, toast, clearFetchFeaturedProductsError]);
-
-    const handleAddToCart = () => {
-        toast({
-            title: 'Added to Cart',
-            description: 'Product has been added to your cart.',
-            duration: 3000,
-        });
-    };
 
     return (
         <div className="py-24 sm:py-32">
@@ -69,7 +60,7 @@ export function FeaturedProducts() {
                               ))
                             : featuredProducts.map((product) => (
                                   <CarouselItem key={product.id} className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/4">
-                                      <Product product={product} onAddToCart={handleAddToCart} />
+                                      <Product product={product} />
                                   </CarouselItem>
                               ))}
                     </CarouselContent>

@@ -27,7 +27,7 @@ class CartController extends Controller
             'user_id' => Auth::user()->id
         ]);
 
-        $product = Product::findOrFail($request->productId);
+        $product = Product::findOrFail($request->id);
         $quantity = $request->quantity;
 
         $existingItem = $cart->items()->where('product_id', $product->id)->first();
@@ -36,7 +36,7 @@ class CartController extends Controller
             $existingItem->update([
                 'quantity' => $existingItem->quantity + $quantity
             ]);
-              $cartItem = $existingItem;
+            $cartItem = $existingItem;
         } else {
             $cartItem = $cart->items()->create([
                 'product_id' => $product->id,
@@ -49,14 +49,35 @@ class CartController extends Controller
         ], 201);
     }
 
-    public function destroy(CartItem $item): JsonResponse
+    public function destroy($productId): JsonResponse
     {
-        if ($item->cart->user_id !== Auth::user()->id) {
-            return response()->json(['message' => 'Unauthorized'], 403);
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+
+        if (!$cart) {
+            return response()->json(['message' => 'Cart not found'], 404);
+        }
+
+        $item = $cart->items()->where('product_id', $productId)->first();
+
+        if (!$item) {
+            return response()->json(['message' => 'Item not found in cart'], 404);
         }
 
         $item->delete();
 
         return response()->json(['message' => 'Item removed from cart']);
+    }
+
+    public function clear(): JsonResponse
+    {
+        $cart = Cart::where('user_id', Auth::user()->id)->first();
+
+        if (!$cart) {
+            return response()->json(['message' => 'Cart is already empty']);
+        }
+
+        $cart->items()->delete();
+
+        return response()->json(['message' => 'Cart cleared successfully']);
     }
 }

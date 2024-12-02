@@ -4,25 +4,47 @@ Backend Details:
 
 TODO:
 
-Create a zustand store to fetch products and keep other state data related to it. I have a created one for authentication (auth-store.ts).
+Implement the cart-store Zustand store. Updating the cart should use optimistic updates. It should support the following endpoints:
 
-Create a function to fetch featured products from the url: `http://127.0.0.1:8000/api/featured-products`
-It will return a JSON response as follows:
+GET: http://127.0.0.1:8000/api/cart
+- Fetches the cart items
 {
-    "data": [
-        {
-            "id": 1,
-            "name": "MacBook Pro 16-inch",
-            "description": "The MacBook Pro 16-inch with Apple M1 Pro chip, 16GB RAM, and a 1TB SSD, designed for professional-grade performance and stunning visuals.",
-            "featured": 1,
-            "price": 2499,
-            "discountedPrice": 2299.99,
-            "stock": 15,
-            "categoryName": "Laptops",
-            "imageUrl": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16-space-m1-2021?wid=2000&hei=2000&fmt=jpeg&qlt=90&.v=1643239951000"
-        },
-        ...
-    ]
+    "data": {
+        "items": [
+            {
+                "id": 1,
+                "productId": 12,
+                "productName": "Nothing Phone (2)",
+                "productImageUrl": "https://cdn.shopify.com/s/files/1/0376/5420/0459/files/BA_ALAK_200.1001_2381f096-6ff8-4260-aac1-9cfc3faf411d.png?v=1693208232",
+                "quantity": 1,
+                "price": 699,
+                "discountedPrice": 599.99
+            },
+            {
+                "id": 2,
+                "productId": 1,
+                "productName": "MacBook Pro 16-inch",
+                "productImageUrl": "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/refurb-mbp16-space-m1-2021?wid=2000&hei=2000&fmt=jpeg&qlt=90&.v=1643239951000",
+                "quantity": 2,
+                "price": 2499,
+                "discountedPrice": 2299.99
+            }
+        ],
+        "total": 5697,
+        "totalDiscount": 497.0300000000004,
+        "totalItems": 2
+    }
 }
 
-Then, update the featured-products.tsx file to display the fetched data.
+---
+
+POST: http://127.0.0.1:8000/api/cart/items
+- Adds an item to the cart (If the item already exists in the cart, it should increment the quantity)
+{
+    "productId": 1,
+    "quantity": 1
+}
+
+---
+DEL: http://127.0.0.1:8000/api/cart/items/5
+- Removes an item from the cart

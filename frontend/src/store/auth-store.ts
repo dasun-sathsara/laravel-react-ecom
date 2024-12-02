@@ -4,6 +4,8 @@ import { create, StoreApi } from 'zustand';
 import { api } from '@/lib/api';
 import type { User } from '@/types/user';
 
+import { useCartStore } from './cart-store';
+
 interface AuthState {
     user: User | null;
     token: string | null;
@@ -29,7 +31,7 @@ interface AuthState {
 const initialState = {
     user: null,
     token: localStorage.getItem('token'),
-    isAuthenticated: !!localStorage.getItem('token'),
+    isAuthenticated: false,
     isLoading: false,
     signupError: null,
     signinError: null,
@@ -110,6 +112,8 @@ export const useAuthStore = create<AuthState>((set, get) => {
                     signinError: null,
                 });
 
+                useCartStore.getState().fetchCart();
+
                 return true;
             } catch (error: unknown) {
                 handleError(error, set, 'An error occurred during login', 'signinError');
@@ -152,7 +156,7 @@ export const useAuthStore = create<AuthState>((set, get) => {
         fetchUser: async () => {
             try {
                 set({ isLoading: true, fetchUserError: null });
-                api.defaults.headers.common['Authorization'] = `Bearer ${get().token}`;
+
                 const response = await api.get('http://127.0.0.1:8000/api/user');
                 set({
                     user: response.data,
@@ -166,9 +170,14 @@ export const useAuthStore = create<AuthState>((set, get) => {
         },
     };
 
-    if (store.isAuthenticated) {
-        store.fetchUser();
-        api.defaults.headers.common['Authorization'] = `Bearer ${store.token}`;
+    if (store.token) {
+        try {
+            api.defaults.headers.common['Authorization'] = `Bearer ${store.token}`;
+            store.fetchUser();
+            useCartStore.getState().fetchCart();
+        } catch (error: unknown) {
+            handleError(error, set, 'Failed to fetch user', 'fetchUserError');
+        }
     }
 
     return store;

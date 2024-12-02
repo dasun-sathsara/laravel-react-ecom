@@ -1,26 +1,41 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useToast } from '@/hooks/use-toast';
+import { useCartStore } from '@/store/cart-store';
 import type { ProductCard as ProductCardType } from '@/types/product';
 
 interface ProductProps {
     product: ProductCardType;
-    onAddToCart?: () => void;
 }
 
-export function Product({ product, onAddToCart }: ProductProps) {
+export function Product({ product }: ProductProps) {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
+    const { toast } = useToast();
+    const { addItem, addItemError } = useCartStore();
+
+    useEffect(() => {
+        if (addItemError) {
+            toast({
+                title: 'Error',
+                variant: 'destructive',
+                description: "Couldn't add item to cart",
+                duration: 3000,
+            });
+        }
+    }, [toast, addItemError]);
+
     const navigate = useNavigate();
 
-    const handleOnClick = (): void => {
-        navigate(`/products/${product.id}`);
-    }
-
     return (
-        <Card className="group relative cursor-pointer" onClick={handleOnClick}>
+        <Card
+            className="group relative cursor-pointer"
+            onClick={() => {
+                navigate(`/products/${product.id}`);
+            }}>
             <CardContent className="p-0">
                 <div className="relative aspect-square overflow-hidden rounded-t-lg border border-border/80 shadow-[inset_0_0_0_1px_rgba(0,0,0,0.1)]">
                     {!isImageLoaded && <div className="absolute inset-0 bg-muted animate-pulse" />}
@@ -65,7 +80,13 @@ export function Product({ product, onAddToCart }: ProductProps) {
                         className="w-full mt-4"
                         onClick={(e) => {
                             e.stopPropagation();
-                            onAddToCart?.();
+                            addItem(product, 1);
+
+                            toast({
+                                title: 'Success',
+                                description: 'Item added to cart',
+                                duration: 3000,
+                            });
                         }}>
                         Add to Cart
                     </Button>

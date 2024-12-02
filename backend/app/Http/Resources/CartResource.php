@@ -16,10 +16,9 @@ class CartResource extends JsonResource
                 $discountedPrice = $product->discounted_price;
 
                 return [
-                    'id' => $item->id,
-                    'productId' => $product->id,
-                    'productName' => $product->name,
-                    'productImageUrl' => $product->images()->first()->url,
+                    'id' => $product->id,
+                    'name' => $product->name,
+                    'imageUrl' => $product->images()->first()->url,
                     'quantity' => $item->quantity,
                     'price' => $price,
                     'discountedPrice' => $discountedPrice
@@ -37,8 +36,9 @@ class CartResource extends JsonResource
 
         return [
             'items' => $items,
-            'total' => $total,
-            'totalDiscount' => $totalDiscount
+            'totalPrice' => $total,
+            'totalDiscount' => $totalDiscount,
+            'totalItems' => count($items)
         ];
     }
 }

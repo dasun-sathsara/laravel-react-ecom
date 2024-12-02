@@ -44,8 +44,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // Cart Routes
     Route::get('/cart', [CartController::class, 'index']);
     Route::post('/cart/items', [CartController::class, 'store']);
-    Route::delete('/cart/items/{item}', [CartController::class, 'destroy'])->missing(fn() => response()
+
+    Route::delete('/cart/items/{product}', [CartController::class, 'destroy'])->missing(fn() => response()
         ->json(['message' => 'Item not found'], 404));
+
+    Route::delete('/cart', [CartController::class, 'clear']);
 
     // Admin Routes
     Route::middleware(EnsureUserIsAdmin::class)->prefix('products')->group(function () {
