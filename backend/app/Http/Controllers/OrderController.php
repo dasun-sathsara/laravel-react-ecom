@@ -13,14 +13,14 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with('items')->where('user_id', Auth::user()->id)->get();
+        $orders = Order::with('items')->where('user_id', Auth::user()->id)->latest()->get();
 
         return OrderResource::collection($orders);
     }
 
     public function store(StoreOrderRequest $request)
     {
-        try {
+        try {   
             return DB::transaction(function () use ($request) {
                 $order = Order::create([
                     'user_id' => Auth::user()->id,
