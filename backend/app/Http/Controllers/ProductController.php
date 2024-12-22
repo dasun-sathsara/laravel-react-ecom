@@ -24,7 +24,7 @@ class ProductController extends Controller
             $query->where('category_id', $categoryId);
         }
 
-        return new ProductCollection($query->paginate(12));
+        return new ProductCollection($query->latest('updated_at')->paginate(12));
     }
 
     public function store(StoreProductRequest $request)
@@ -124,8 +124,9 @@ class ProductController extends Controller
         return new ProductCollection(
             Product::with(['category', 'images'])
                 ->where('featured', true)
-                ->get()
+                ->latest('updated_at')
                 ->take(8)
+                ->get()
         );
     }
 }

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cart;
-use App\Models\CartItem;
 use App\Models\Product;
 use App\Http\Resources\CartResource;
 use App\Http\Requests\StoreCartRequest;
@@ -36,9 +35,8 @@ class CartController extends Controller
             $existingItem->update([
                 'quantity' => $existingItem->quantity + $quantity
             ]);
-            $cartItem = $existingItem;
         } else {
-            $cartItem = $cart->items()->create([
+            $cart->items()->create([
                 'product_id' => $product->id,
                 'quantity' => $quantity
             ]);
@@ -63,7 +61,7 @@ class CartController extends Controller
             return response()->json(['message' => 'Item not found in cart'], 404);
         }
 
-        $item->delete();
+        $item->deleteOrFail();
 
         return response()->json(['message' => 'Item removed from cart']);
     }
