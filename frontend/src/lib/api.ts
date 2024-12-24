@@ -1,11 +1,12 @@
-import axios, { AxiosInstance } from 'axios';
+import axios from 'axios';
 
-const api: AxiosInstance = axios.create({
-    baseURL: import.meta.env.VITE_LARAVEL_API_URL || 'http://localhost:8000/api',
+const api = axios.create({
+    baseURL: '/api',
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
-    },
+        'Accept': 'application/json',
+    }
 });
 
 export { api };

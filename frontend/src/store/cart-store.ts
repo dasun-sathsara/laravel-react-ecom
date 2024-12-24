@@ -144,6 +144,8 @@ export const useCartStore = create<CartState>((set, get) => ({
         const currentItems = [...get().items];
         const removedItem = currentItems.find((item) => item.id === productId);
 
+        console.log('removedItem', removedItem);
+
         // Apply optimistic update
         const updatedItems = currentItems.filter((item) => item.id !== productId);
         const totals = calculateCartTotals(updatedItems);

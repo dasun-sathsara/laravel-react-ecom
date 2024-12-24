@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useToast } from '@/hooks/use-toast';
+import { useAuthStore } from '@/store/auth-store';
 import { useCartStore } from '@/store/cart-store';
 import { useProductsStore } from '@/store/products-store';
 
@@ -17,6 +18,7 @@ export function ProductPage() {
 
     const { selectedProduct, isLoading, fetchProductError, fetchProduct } = useProductsStore();
     const { addItem, addItemError } = useCartStore();
+    const { isAuthenticated } = useAuthStore();
 
     const { toast } = useToast();
     const navigate = useNavigate();
@@ -48,6 +50,15 @@ export function ProductPage() {
     const handleAddToCart = async () => {
         if (!selectedProduct) return;
 
+        if (!isAuthenticated) {
+            toast({
+                title: 'Error',
+                description: 'You need to be logged in to add items to your cart',
+                variant: 'destructive',
+            });
+            return;
+        }
+
         setIsAddingToCart(true);
         try {
             await addItem(selectedProduct, quantity);
@@ -66,6 +77,15 @@ export function ProductPage() {
 
     const handleBuyNow = async () => {
         if (!selectedProduct) return;
+
+        if (!isAuthenticated) {
+            toast({
+                title: 'Error',
+                description: 'You need to be logged in to buy items',
+                variant: 'destructive',
+            });
+            return;
+        }
 
         setIsAddingToCart(true);
         try {

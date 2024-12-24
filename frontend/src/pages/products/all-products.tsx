@@ -11,6 +11,7 @@ export function ShopPage() {
         fetchProducts,
     } = useProductsStore();
 
+
     const itemsPerPage = 12;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = currentPage * itemsPerPage;

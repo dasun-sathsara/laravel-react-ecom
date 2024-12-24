@@ -13,6 +13,17 @@ interface PaginationState {
     totalProducts: number;
 }
 
+interface AddProductInput {
+    name: string;
+    description: string;
+    price: number;
+    discountedPrice?: number;
+    categoryId: number;
+    stock: number;
+    featured: boolean;
+    imageUrls: string[];
+}
+
 interface ProductsState {
     featuredProducts: ProductCard[];
     products: ProductCard[];
@@ -29,9 +40,9 @@ interface ProductsState {
 
     fetchFeaturedProducts: () => Promise<void>;
     fetchProducts: (page: number, categoryId?: number) => Promise<void>;
-    addProduct: (product: Omit<ProductCard, 'id'>) => Promise<void>;
-    updateProduct: (id: number, updatedProduct: Partial<ProductCard>) => Promise<void>;
-    deleteProduct: (id: number) => Promise<void>;
+    addProduct: (product: AddProductInput) => Promise<void>;
+    updateProduct: (id: string, updatedProduct: Partial<Product>) => Promise<void>;
+    deleteProduct: (id: string) => Promise<void>;
     fetchProduct: (id: string) => Promise<void>;
 
     clearFetchFeaturedProductsError: () => void;
@@ -136,7 +147,7 @@ export const useProductsStore = create<ProductsState>((set) => ({
 
         try {
             set({ isLoading: true, addProductError: null });
-            const response = await api.post('/api/products', product);
+            const response = await api.post('/products', product);
             set((state) => ({
                 products: [...state.products, response.data],
                 isLoading: false,
@@ -157,9 +168,9 @@ export const useProductsStore = create<ProductsState>((set) => ({
 
         try {
             set({ isLoading: true, updateProductError: null });
-            const response = await api.put(`/api/products/${id}`, updatedProduct);
+            const response = await api.put(`/products/${id}`, updatedProduct);
             set((state) => ({
-                products: state.products.map((prod) => (Number(prod.id) === id ? response.data : prod)),
+                products: state.products.map((prod) => (prod.id === id ? response.data : prod)),
                 isLoading: false,
                 updateProductError: null,
             }));
@@ -178,9 +189,9 @@ export const useProductsStore = create<ProductsState>((set) => ({
 
         try {
             set({ isLoading: true, deleteProductError: null });
-            await api.delete(`/api/products/${id}`);
+            await api.delete(`/products/${id}`);
             set((state) => ({
-                products: state.products.filter((prod) => Number(prod.id) !== id),
+                products: state.products.filter((prod) => prod.id !== id),
                 isLoading: false,
                 deleteProductError: null,
             }));

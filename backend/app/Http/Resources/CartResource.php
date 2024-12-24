@@ -20,8 +20,8 @@ class CartResource extends JsonResource
                     'name' => $product->name,
                     'imageUrl' => $product->images()->first()->url,
                     'quantity' => $item->quantity,
-                    'price' => $price,
-                    'discountedPrice' => $discountedPrice
+                    'price' => (float) $price,
+                    'discountedPrice' => (float)$discountedPrice
                 ];
             });
         }, []);

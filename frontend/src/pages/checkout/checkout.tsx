@@ -8,11 +8,14 @@ import { Separator } from '@/components/ui/separator';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useToast } from '@/hooks/use-toast';
 import { useCartStore } from '@/store/cart-store';
+import { useOrderStore } from '@/store/order-store';
+import type { OrderCreate } from '@/types/order';
 
 const CheckoutPage = () => {
     const { toast } = useToast();
     const navigate = useNavigate();
     const { items, totalPrice, totalDiscount, removeItem, removeItemError, fetchCart, reset } = useCartStore();
+    const { createOrder, createOrderError } = useOrderStore();
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
@@ -44,20 +47,27 @@ const CheckoutPage = () => {
     const handleCheckout = async () => {
         setIsLoading(true);
         try {
-            // Simulate loading for 2 seconds
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            const orderData: OrderCreate = {
+                items: items.map((product) => ({
+                    id: product.id,
+                    quantity: product.quantity,
+                })),
+                status: 'pending',
+            };
 
-            // TODO: Implement actual checkout logic with API
+            await createOrder(orderData);
 
-            // Reset the cart after successful order
-            reset();
+            if (!createOrderError) {
+                // Reset the cart after successful order
+                reset();
 
-            toast({
-                title: 'Order placed successfully!',
-                description: 'Thank you for your purchase.',
-                duration: 3000,
-            });
-            navigate('/orders/success');
+                toast({
+                    title: 'Order placed successfully!',
+                    description: 'Thank you for your purchase.',
+                    duration: 3000,
+                });
+                navigate('/orders/success');
+            }
             // eslint-disable-next-line @typescript-eslint/no-unused-vars
         } catch (error: unknown) {
             toast({

@@ -58,17 +58,14 @@ export function LoginPage() {
                 duration: 3000,
             });
 
-            // Redirect after successful login
             setTimeout(() => {
                 if (from === '/') {
-                    // If there's no specific redirect path, use default admin/user routes
                     if (isAdmin()) {
-                        navigate('/admin/dashboard', { replace: true });
+                        navigate('/dashboard', { replace: true });
                     } else {
                         navigate('/', { replace: true });
                     }
                 } else {
-                    // Redirect to the original requested page
                     navigate(from, { replace: true });
                 }
             }, 2000);

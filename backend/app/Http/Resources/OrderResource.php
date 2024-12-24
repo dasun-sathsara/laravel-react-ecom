@@ -13,7 +13,7 @@ class OrderResource extends JsonResource
             'id' => $this->id,
             'date' => $this->created_at->format('Y-m-d'),
             'items' => OrderItemResource::collection($this->items),
-            'totalPrice' => $this->items->sum('total'),
+            'totalPrice' => (float) $this->items->sum('total'),
             'status' => $this->status,
         ];
     }

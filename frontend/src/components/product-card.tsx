@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
+import { useAuthStore } from '@/store/auth-store';
 import { useCartStore } from '@/store/cart-store';
 import type { ProductCard as ProductCardType } from '@/types/product';
 
@@ -16,6 +17,8 @@ export function Product({ product }: ProductProps) {
     const [isImageLoaded, setIsImageLoaded] = useState(false);
     const { toast } = useToast();
     const { addItem, addItemError } = useCartStore();
+
+    const { isAuthenticated } = useAuthStore();
 
     useEffect(() => {
         if (addItemError) {
@@ -80,6 +83,18 @@ export function Product({ product }: ProductProps) {
                         className="w-full mt-4"
                         onClick={(e) => {
                             e.stopPropagation();
+
+                            if (!isAuthenticated) {
+                                toast({
+                                    title: 'Error',
+                                    variant: 'destructive',
+                                    description: 'Please login to add item to cart',
+                                    duration: 3000,
+                                });
+
+                                return;
+                            }
+
                             addItem(product, 1);
 
                             toast({

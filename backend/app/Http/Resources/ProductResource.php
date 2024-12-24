@@ -13,8 +13,8 @@ class ProductResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'description' => $this->description,
-            'price' => $this->price,
-            'discountedPrice' => $this->discounted_price,
+            'price' => (float) $this->price,
+            'discountedPrice' => (float) $this->discounted_price,
             'stock' => $this->stock,
             'featured' => $this->featured,
             'categoryId' => $this->when($this->category, function () {

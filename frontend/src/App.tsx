@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 
 import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar';
@@ -8,7 +9,7 @@ import { LoginPage } from '@/pages/auth/sign-in';
 import { SignUpPage } from '@/pages/auth/sign-up';
 import { CategoriesPage } from '@/pages/categories/all-categories';
 import CheckoutPage from '@/pages/checkout/checkout';
-import DashboardPage from '@/pages/misc/dashboard';
+import DashboardPage from '@/pages/dashboard/home';
 import { HomePage } from '@/pages/misc/home';
 import { NotFoundPage } from '@/pages/misc/not-found';
 import OrdersPage from '@/pages/orders/my-orders';
@@ -18,10 +19,19 @@ import { ShopPage } from '@/pages/products/all-products';
 import EditProductPage from '@/pages/products/edit-product';
 import { ProductPage } from '@/pages/products/product-info';
 import CategoryPage from '@/pages/products/products-by-category';
+import { useAuthStore } from '@/store/auth-store';
+import { useNavigationStore } from '@/store/navigation-store';
 
 function App() {
+    const initialize = useAuthStore((state) => state.initialize);
+
+    useEffect(() => {
+        initialize();
+    }, [initialize]);
+
     return (
         <Router>
+            <NavigationListener />
             <div className="min-h-screen bg-background flex flex-col">
                 <Navbar />
                 <main className="flex-1">
@@ -91,6 +101,18 @@ function App() {
             </div>
         </Router>
     );
+}
+
+function NavigationListener() {
+    const location = useLocation();
+    const pushToHistory = useNavigationStore((state) => state.pushToHistory);
+
+    useEffect(() => {
+        const path = location.pathname + location.search;
+        pushToHistory(path);
+    }, [location, pushToHistory]);
+
+    return null;
 }
 
 export default App;
