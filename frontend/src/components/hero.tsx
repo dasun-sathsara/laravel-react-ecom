@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { ArrowRight, Sparkles } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
@@ -33,27 +34,43 @@ export function Hero() {
 
             <Container className="relative">
                 <div className="mx-auto max-w-3xl text-center">
-                    <div className="mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm">
+                    <motion.div
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="mb-6 inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-sm">
                         <Sparkles className="h-4 w-4" />
                         <span>Explore the Latest Tech Gadgets</span>
-                    </div>
-                    <h1 className="text-5xl font-bold tracking-tight sm:text-7xl animate-fade-up">
+                    </motion.div>
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="text-5xl font-bold tracking-tight sm:text-7xl">
                         Discover Cutting-Edge Technology
-                    </h1>
-                    <p className="mt-8 text-lg sm:text-xl leading-8 text-muted-foreground max-w-2xl mx-auto animate-fade-up [animation-delay:200ms]">
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
+                        className="mt-8 text-lg sm:text-xl leading-8 text-muted-foreground max-w-2xl mx-auto">
                         Dive into the world of tech gadgets and innovation. Get exclusive deals on the latest tech.
-                    </p>
+                    </motion.p>
 
-                    <div className="mt-12 flex items-center justify-center animate-fade-up [animation-delay:800ms]">
-                        <Button
-                            size="lg"
-                            className="h-12 px-8 text-base transition-transform hover:scale-105 hover:shadow-lg"
-                            onClick={() => navigate('/shop')}
-                        >
-                            Shop Now
-                            <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-                        </Button>
-                    </div>
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6, delay: 0.6 }}
+                        className="mt-12 flex items-center justify-center">
+                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                            <Button size="lg" className="h-12 px-8 text-base" onClick={() => navigate('/shop')}>
+                                Shop Now
+                                <motion.span whileHover={{ x: 5 }} transition={{ type: 'spring', stiffness: 200 }}>
+                                    <ArrowRight className="ml-2 h-5 w-5" />
+                                </motion.span>
+                            </Button>
+                        </motion.div>
+                    </motion.div>
                 </div>
             </Container>
         </div>

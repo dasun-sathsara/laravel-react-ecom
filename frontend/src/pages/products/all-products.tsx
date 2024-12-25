@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { AlertCircle } from 'lucide-react';
 
 import { ProductsGrid } from '@/components/paginated-products';
@@ -17,7 +18,11 @@ export function ShopPage() {
     const endIndex = currentPage * itemsPerPage;
 
     return (
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-12">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-12"
+        >
             {fetchProductsError ? (
                 <div className="flex flex-col items-center justify-center space-y-6 flex-1 min-h-[70vh]">
                     <div className="text-center space-y-4">
@@ -31,7 +36,11 @@ export function ShopPage() {
                 </div>
             ) : (
                 <>
-                    <div className="text-center mb-12">
+                    <motion.div
+                        initial={{ opacity: 0, y: -20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-center mb-12"
+                    >
                         <h2 className="text-3xl font-bold mb-3">All Products</h2>
                         <p className="text-sm text-muted-foreground mt-2">
                             {totalProducts > 0 && (
@@ -41,11 +50,24 @@ export function ShopPage() {
                                 </>
                             )}
                         </p>
-                    </div>
-                    <ProductsGrid />
+                    </motion.div>
+                    <motion.div
+                        initial="hidden"
+                        animate="visible"
+                        variants={{
+                            hidden: {},
+                            visible: {
+                                transition: {
+                                    staggerChildren: 0.1
+                                }
+                            }
+                        }}
+                    >
+                        <ProductsGrid />
+                    </motion.div>
                 </>
             )}
-        </div>
+        </motion.div>
     );
 }
 

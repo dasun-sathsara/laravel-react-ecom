@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { AlertCircle, ArrowLeft, Minus, Plus, ShoppingCart } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -140,18 +141,27 @@ export function ProductPage() {
     }
 
     return (
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-12">
-            <Button
-                variant="ghost"
+        <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-12"
+        >
+            <motion.button
+                whileHover={{ x: -4 }}
+                whileTap={{ scale: 0.95 }}
                 className="mb-8 -ml-2 flex items-center text-muted-foreground hover:text-foreground transition-colors"
-                onClick={() => navigate(-1)}>
+                onClick={() => navigate(-1)}
+            >
                 <ArrowLeft className="mr-2 h-4 w-4" />
                 Back
-            </Button>
+            </motion.button>
 
             <div className="grid md:grid-cols-2 gap-8">
-                {/* Product Images */}
-                <div>
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.5 }}
+                >
                     <Carousel className="w-full border rounded-lg p-4">
                         <CarouselContent>
                             {(selectedProduct.imageUrls || []).map((image, index) => (
@@ -169,10 +179,14 @@ export function ProductPage() {
                         <CarouselPrevious className="left-2" />
                         <CarouselNext className="right-2" />
                     </Carousel>
-                </div>
+                </motion.div>
 
-                {/* Product Info */}
-                <div className="flex flex-col h-full justify-between">
+                <motion.div 
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.2 }}
+                    className="flex flex-col h-full justify-between"
+                >
                     <div className="space-y-6">
                         <div>
                             <h1 className="text-3xl font-bold">{selectedProduct.name}</h1>
@@ -267,8 +281,8 @@ export function ProductPage() {
                             </div>
                         </div>
                     </div>
-                </div>
+                </motion.div>
             </div>
-        </div>
+        </motion.div>
     );
 }

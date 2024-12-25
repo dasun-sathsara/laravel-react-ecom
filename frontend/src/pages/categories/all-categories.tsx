@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -49,56 +50,86 @@ export function CategoriesPage() {
     }, [error, toast]);
 
     return (
-        <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-16">
-            <div className="text-center space-y-4 mb-16">
-                <h1 className="text-4xl font-bold tracking-tight">Explore Our Categories</h1>
-                <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                    Find everything you need, organized in convenient categories for your shopping experience
-                </p>
-            </div>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="relative"
+        >
+            <div className="mx-auto w-full max-w-7xl px-6 lg:px-8 py-16">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center space-y-4 mb-16"
+                >
+                    <h1 className="text-4xl font-bold tracking-tight">Explore Our Categories</h1>
+                    <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                        Find everything you need, organized in convenient categories for your shopping experience
+                    </p>
+                </motion.div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {isLoading
-                    ? Array.from({ length: 6 }).map((_, index) => (
-                          <div key={`skeleton-${index}`}>
-                              <CategoryCardSkeleton />
-                          </div>
-                      ))
-                    : categories.map((category) => (
-                          <Link
-                              to={`/categories/${category.id}`}
-                              key={category.id}
-                              className="group block transition-transform hover:-translate-y-0.5 duration-300">
-                              <Card className="overflow-hidden border hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-md">
-                                  <div className="relative">
-                                      <div className="relative aspect-[4/3] overflow-hidden">
-                                          <img
-                                              src={category.imageUrl}
-                                              alt={category.name}
-                                              className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:blur-[2px]"
-                                          />
-                                          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/10" />
-                                      </div>
-                                      <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                                          <h3 className="text-2xl font-bold mb-1">{category.name}</h3>
-                                          <p className="text-sm text-white/80 line-clamp-2">{category.description}</p>
-                                      </div>
-                                  </div>
-                                  <div className="p-4 flex justify-between items-center bg-muted/30">
-                                      <Badge variant="secondary" className="bg-background/80 text-foreground">
-                                          {category.itemCount?.toLocaleString() ?? 0} items
-                                      </Badge>
-                                      <Button
-                                          variant="ghost"
-                                          size="sm"
-                                          className="text-muted-foreground group-hover:text-primary/80">
-                                          Browse Category <ArrowRight className="ml-1 h-4 w-4" />
-                                      </Button>
-                                  </div>
-                              </Card>
-                          </Link>
-                      ))}
+                <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={{
+                        hidden: {},
+                        visible: {
+                            transition: {
+                                staggerChildren: 0.1
+                            }
+                        }
+                    }}
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                >
+                    {isLoading
+                        ? Array.from({ length: 6 }).map((_, index) => (
+                            <div key={`skeleton-${index}`}>
+                                <CategoryCardSkeleton />
+                            </div>
+                        ))
+                        : categories.map((category) => (
+                            <motion.div
+                                key={category.id}
+                                variants={{
+                                    hidden: { opacity: 0, y: 20 },
+                                    visible: { opacity: 1, y: 0 }
+                                }}
+                            >
+                                <Link
+                                    to={`/categories/${category.id}`}
+                                    key={category.id}
+                                    className="group block transition-transform hover:-translate-y-0.5 duration-300">
+                                    <Card className="overflow-hidden border hover:border-primary/50 transition-all duration-300 shadow-sm hover:shadow-md">
+                                        <div className="relative">
+                                            <div className="relative aspect-[4/3] overflow-hidden">
+                                                <img
+                                                    src={category.imageUrl}
+                                                    alt={category.name}
+                                                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:blur-[2px]"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/10" />
+                                            </div>
+                                            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                                                <h3 className="text-2xl font-bold mb-1">{category.name}</h3>
+                                                <p className="text-sm text-white/80 line-clamp-2">{category.description}</p>
+                                            </div>
+                                        </div>
+                                        <div className="p-4 flex justify-between items-center bg-muted/30">
+                                            <Badge variant="secondary" className="bg-background/80 text-foreground">
+                                                {category.itemCount?.toLocaleString() ?? 0} items
+                                            </Badge>
+                                            <Button
+                                                variant="ghost"
+                                                size="sm"
+                                                className="text-muted-foreground group-hover:text-primary/80">
+                                                Browse Category <ArrowRight className="ml-1 h-4 w-4" />
+                                            </Button>
+                                        </div>
+                                    </Card>
+                                </Link>
+                            </motion.div>
+                        ))}
+                </motion.div>
             </div>
-        </div>
+        </motion.div>
     );
 }
